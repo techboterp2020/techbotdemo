@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_tour_booking" model="ir.actions.report">
+        <field name="name">Tour Booking / Costing Sheet</field>
+        <field name="model">oceanair.tour.booking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">oceanair_tours.report_tour_booking</field>
+        <field name="report_file">oceanair_tours.report_tour_booking</field>
+        <field name="binding_model_id" ref="model_oceanair_tour_booking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_tour_booking">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            Tour Booking
+                            <span t-field="doc.name"/>
+                        </h2>
+                        <div class="row mt-4 mb-4">
+                            <div class="col-6">
+                                <strong>Customer:</strong>
+                                <span t-field="doc.partner_id"/><br/>
+                                <strong>Package:</strong>
+                                <span t-field="doc.package_id"/><br/>
+                                <strong>Sales Agent:</strong>
+                                <span t-field="doc.sales_agent_id"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Travel:</strong>
+                                <span t-field="doc.date_from"/> &#8594;
+                                <span t-field="doc.date_to"/><br/>
+                                <strong>Passengers:</strong>
+                                <span t-field="doc.pax_total"/><br/>
+                                <strong>Status:</strong>
+                                <span t-field="doc.state"/>
+                            </div>
+                        </div>
+
+                        <h4>Supplier Costs</h4>
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Type</th>
+                                    <th>Supplier</th>
+                                    <th class="text-end">Qty</th>
+                                    <th class="text-end">Unit Cost</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.cost_line_ids" t-as="line">
+                                    <td><span t-field="line.name"/></td>
+                                    <td><span t-field="line.cost_type"/></td>
+                                    <td><span t-field="line.vendor_id"/></td>
+                                    <td class="text-end">
+                                        <span t-field="line.quantity"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="line.unit_cost"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="line.subtotal"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-6 offset-6">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>Total Sales</td>
+                                        <td class="text-end">
+                                            <span t-field="doc.amount_sale"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Cost</td>
+                                        <td class="text-end">
+                                            <span t-field="doc.amount_cost"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Margin</strong></td>
+                                        <td class="text-end">
+                                            <strong>
+                                                <span t-field="doc.margin"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

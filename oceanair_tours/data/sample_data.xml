@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ============ Customers & Suppliers ============ -->
+        <record id="partner_alsalah" model="res.partner">
+            <field name="name">Al Salah Holding (Demo Customer)</field>
+            <field name="is_company" eval="True"/>
+            <field name="customer_rank">1</field>
+            <field name="city">Dubai</field>
+            <field name="country_id" ref="base.ae"/>
+        </record>
+        <record id="partner_domes" model="res.partner">
+            <field name="name">Domes Resorts (Supplier)</field>
+            <field name="is_company" eval="True"/>
+            <field name="supplier_rank">1</field>
+        </record>
+        <record id="partner_nile" model="res.partner">
+            <field name="name">Nile Cruises LLC (Supplier)</field>
+            <field name="is_company" eval="True"/>
+            <field name="supplier_rank">1</field>
+        </record>
+        <record id="partner_safari" model="res.partner">
+            <field name="name">Dubai Safari Co (Supplier)</field>
+            <field name="is_company" eval="True"/>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <!-- ============ Tour Packages ============ -->
+        <record id="pkg_city_dubai" model="oceanair.tour.package">
+            <field name="name">Dubai City Tour</field>
+            <field name="code">CITY-DXB</field>
+            <field name="tour_type">city</field>
+            <field name="destination">Dubai, UAE</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">350</field>
+        </record>
+        <record id="pkg_safari" model="oceanair.tour.package">
+            <field name="name">Desert Safari Adventure</field>
+            <field name="code">SAFARI-DXB</field>
+            <field name="tour_type">safari</field>
+            <field name="destination">Dubai Desert</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">250</field>
+        </record>
+        <record id="pkg_egypt" model="oceanair.tour.package">
+            <field name="name">Egypt Nile Cruise (5N)</field>
+            <field name="code">EGY-NILE</field>
+            <field name="tour_type">egypt</field>
+            <field name="destination">Cairo &amp; Luxor, Egypt</field>
+            <field name="duration_days">5</field>
+            <field name="default_price">3200</field>
+        </record>
+        <record id="pkg_croatia" model="oceanair.tour.package">
+            <field name="name">Croatia Coastal Escape (7N)</field>
+            <field name="code">CRO-COAST</field>
+            <field name="tour_type">croatia</field>
+            <field name="destination">Dubrovnik &amp; Split, Croatia</field>
+            <field name="duration_days">7</field>
+            <field name="default_price">5400</field>
+        </record>
+        <record id="pkg_domes" model="oceanair.tour.package">
+            <field name="name">Domes Luxury Stay (3N)</field>
+            <field name="code">DOMES-3N</field>
+            <field name="tour_type">domes</field>
+            <field name="destination">Greece</field>
+            <field name="duration_days">3</field>
+            <field name="default_price">2100</field>
+        </record>
+
+        <!-- ============ Sample Booking (confirmed) ============ -->
+        <record id="booking_demo_egypt" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_alsalah"/>
+            <field name="package_id" ref="pkg_egypt"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="pax_adults">2</field>
+            <field name="pax_children">1</field>
+            <field name="unit_price">3200</field>
+            <field name="state">confirmed</field>
+        </record>
+        <record id="cost_egypt_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_demo_egypt"/>
+            <field name="name">Nile Cruise Cabin (5N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">3</field>
+            <field name="unit_cost">1500</field>
+        </record>
+        <record id="cost_egypt_2" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_demo_egypt"/>
+            <field name="name">Airport &amp; Cruise Transfers</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">300</field>
+        </record>
+        <record id="cost_egypt_3" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_demo_egypt"/>
+            <field name="name">Guided Excursions (Giza, Luxor)</field>
+            <field name="cost_type">guide</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">3</field>
+            <field name="unit_cost">200</field>
+        </record>
+
+        <!-- A second booking to make reporting look real -->
+        <record id="booking_demo_safari" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_alsalah"/>
+            <field name="package_id" ref="pkg_safari"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="pax_adults">4</field>
+            <field name="pax_children">0</field>
+            <field name="unit_price">250</field>
+            <field name="state">draft</field>
+        </record>
+        <record id="cost_safari_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_demo_safari"/>
+            <field name="name">4x4 Dune Bashing + BBQ Dinner</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_safari"/>
+            <field name="quantity">4</field>
+            <field name="unit_cost">120</field>
+        </record>
+
+    </data>
+</odoo>

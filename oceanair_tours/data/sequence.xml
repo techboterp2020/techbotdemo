@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_oceanair_booking" model="ir.sequence">
+            <field name="name">OceanAir Tour Booking</field>
+            <field name="code">oceanair.tour.booking</field>
+            <field name="prefix">OATB/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

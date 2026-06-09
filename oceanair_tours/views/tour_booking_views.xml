@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- FORM -->
+    <record id="view_oceanair_booking_form" model="ir.ui.view">
+        <field name="name">oceanair.tour.booking.form</field>
+        <field name="model">oceanair.tour.booking</field>
+        <field name="arch" type="xml">
+            <form string="Tour Booking">
+                <header>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_create_invoice" type="object"
+                            string="Create Customer Invoice" class="btn-primary"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_create_vendor_bills" type="object"
+                            string="Generate Vendor Bills"
+                            invisible="state == 'draft' or not cost_line_ids"/>
+                    <button name="action_done" type="object"
+                            string="Mark Completed"
+                            invisible="state != 'invoiced'"/>
+                    <button name="action_set_draft" type="object"
+                            string="Set to Draft"
+                            invisible="state not in ('confirmed', 'cancel')"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('done', 'cancel')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,invoiced,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_invoice" type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                invisible="invoice_count == 0">
+                            <field name="invoice_count" widget="statinfo"
+                                   string="Invoice"/>
+                        </button>
+                        <button name="action_view_vendor_bills" type="object"
+                                class="oe_stat_button" icon="fa-money"
+                                invisible="vendor_bill_count == 0">
+                            <field name="vendor_bill_count" widget="statinfo"
+                                   string="Vendor Bills"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="package_id"/>
+                            <field name="tour_type"/>
+                            <field name="sales_agent_id"/>
+                            <field name="lead_id" readonly="1"
+                                   invisible="not lead_id"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <label for="pax_adults" string="Passengers"/>
+                            <div class="o_row">
+                                <field name="pax_adults"/>
+                                <span> Adults / </span>
+                                <field name="pax_children"/>
+                                <span> Children = </span>
+                                <field name="pax_total"/>
+                            </div>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="unit_price"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Supplier Costs" name="costs">
+                            <field name="cost_line_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="cost_type"/>
+                                    <field name="vendor_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_cost"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer" colspan="2">
+                                <field name="amount_sale"/>
+                                <field name="amount_cost"/>
+                                <field name="margin"
+                                       class="oe_subtotal_footer_separator"/>
+                                <field name="margin_pct"/>
+                            </group>
+                        </page>
+                        <page string="Other Information" name="other">
+                            <group>
+                                <group>
+                                    <field name="analytic_account_id"/>
+                                    <field name="company_id"
+                                           groups="base.group_multi_company"/>
+                                </group>
+                            </group>
+                            <field name="notes"
+                                   placeholder="Internal notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- LIST -->
+    <record id="view_oceanair_booking_list" model="ir.ui.view">
+        <field name="name">oceanair.tour.booking.list</field>
+        <field name="model">oceanair.tour.booking</field>
+        <field name="arch" type="xml">
+            <list string="Tour Bookings"
+                  decoration-info="state == 'draft'"
+                  decoration-success="state in ('invoiced', 'done')"
+                  decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="package_id"/>
+                <field name="tour_type"/>
+                <field name="date_from"/>
+                <field name="pax_total"/>
+                <field name="amount_sale" sum="Total Sales"/>
+                <field name="amount_cost" sum="Total Cost"/>
+                <field name="margin" sum="Total Margin"/>
+                <field name="margin_pct"/>
+                <field name="sales_agent_id" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state in ('invoiced', 'done')"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- SEARCH -->
+    <record id="view_oceanair_booking_search" model="ir.ui.view">
+        <field name="name">oceanair.tour.booking.search</field>
+        <field name="model">oceanair.tour.booking</field>
+        <field name="arch" type="xml">
+            <search string="Tour Bookings">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="package_id"/>
+                <field name="sales_agent_id"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="confirmed" string="Confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+                <filter name="invoiced" string="Invoiced"
+                        domain="[('state', '=', 'invoiced')]"/>
+                <separator/>
+                <filter name="my" string="My Bookings"
+                        domain="[('sales_agent_id', '=', uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="g_type" string="Tour Type"
+                            context="{'group_by': 'tour_type'}"/>
+                    <filter name="g_agent" string="Sales Agent"
+                            context="{'group_by': 'sales_agent_id'}"/>
+                    <filter name="g_partner" string="Customer"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="g_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- PIVOT -->
+    <record id="view_oceanair_booking_pivot" model="ir.ui.view">
+        <field name="name">oceanair.tour.booking.pivot</field>
+        <field name="model">oceanair.tour.booking</field>
+        <field name="arch" type="xml">
+            <pivot string="Tour Profitability">
+                <field name="tour_type" type="row"/>
+                <field name="amount_sale" type="measure"/>
+                <field name="amount_cost" type="measure"/>
+                <field name="margin" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- GRAPH -->
+    <record id="view_oceanair_booking_graph" model="ir.ui.view">
+        <field name="name">oceanair.tour.booking.graph</field>
+        <field name="model">oceanair.tour.booking</field>
+        <field name="arch" type="xml">
+            <graph string="Tour Margin" type="bar">
+                <field name="tour_type"/>
+                <field name="margin" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ACTIONS -->
+    <record id="action_oceanair_booking" model="ir.actions.act_window">
+        <field name="name">Tour Bookings</field>
+        <field name="res_model">oceanair.tour.booking</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_oceanair_booking_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first tour booking
+            </p>
+            <p>Capture the customer, package and passengers, add supplier
+               costs, and let Odoo calculate margin and raise the invoice.</p>
+        </field>
+    </record>
+
+    <record id="action_oceanair_booking_report" model="ir.actions.act_window">
+        <field name="name">Tour Profitability</field>
+        <field name="res_model">oceanair.tour.booking</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="search_view_id" ref="view_oceanair_booking_search"/>
+    </record>
+
+</odoo>

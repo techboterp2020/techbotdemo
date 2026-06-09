@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_oceanair" model="ir.module.category">
+        <field name="name">Tour Operations</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="group_oceanair_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_oceanair"/>
+    </record>
+
+    <record id="group_oceanair_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_oceanair"/>
+        <field name="implied_ids" eval="[(4, ref('group_oceanair_user'))]"/>
+    </record>
+
+    <!-- Every internal user can use the Tours app in this demo -->
+    <record id="base.group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_oceanair_user'))]"/>
+    </record>
+
+    <!-- Make the admin a Tour Operations Manager -->
+    <record id="base.user_admin" model="res.users">
+        <field name="groups_id" eval="[(4, ref('group_oceanair_manager'))]"/>
+    </record>
+
+</odoo>

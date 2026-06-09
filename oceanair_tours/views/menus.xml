@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_oceanair_root"
+              name="OceanAir Tours"
+              groups="group_oceanair_user"
+              sequence="50"/>
+
+    <menuitem id="menu_oceanair_bookings"
+              name="Bookings"
+              parent="menu_oceanair_root"
+              action="action_oceanair_booking"
+              sequence="10"/>
+
+    <menuitem id="menu_oceanair_reporting"
+              name="Reporting"
+              parent="menu_oceanair_root"
+              action="action_oceanair_booking_report"
+              sequence="20"/>
+
+    <menuitem id="menu_oceanair_config"
+              name="Configuration"
+              parent="menu_oceanair_root"
+              groups="group_oceanair_manager"
+              sequence="90"/>
+
+    <menuitem id="menu_oceanair_packages"
+              name="Tour Packages"
+              parent="menu_oceanair_config"
+              action="action_oceanair_package"
+              sequence="10"/>
+
+</odoo>
