@@ -21,7 +21,7 @@
     <menuitem id="menu_oceanair_config"
               name="Configuration"
               parent="menu_oceanair_root"
-              groups="group_oceanair_manager"
+              groups="group_oceanair_user"
               sequence="90"/>
 
     <menuitem id="menu_oceanair_packages"
