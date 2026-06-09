@@ -2,7 +2,9 @@
 <odoo>
     <data noupdate="1">
 
-        <!-- ============ Customers & Suppliers ============ -->
+        <!-- ============================================================ -->
+        <!-- Customers                                                     -->
+        <!-- ============================================================ -->
         <record id="partner_alsalah" model="res.partner">
             <field name="name">Al Salah Holding (Demo Customer)</field>
             <field name="is_company" eval="True"/>
@@ -10,6 +12,45 @@
             <field name="city">Dubai</field>
             <field name="country_id" ref="base.ae"/>
         </record>
+        <record id="partner_cust_2" model="res.partner">
+            <field name="name">Gulf Corporate Travel</field>
+            <field name="is_company" eval="True"/>
+            <field name="customer_rank">1</field>
+            <field name="city">Abu Dhabi</field>
+            <field name="country_id" ref="base.ae"/>
+        </record>
+        <record id="partner_cust_3" model="res.partner">
+            <field name="name">Emirates Leisure Group</field>
+            <field name="is_company" eval="True"/>
+            <field name="customer_rank">1</field>
+            <field name="city">Dubai</field>
+            <field name="country_id" ref="base.ae"/>
+        </record>
+        <record id="partner_cust_4" model="res.partner">
+            <field name="name">Falcon Tours DMC</field>
+            <field name="is_company" eval="True"/>
+            <field name="customer_rank">1</field>
+            <field name="city">Sharjah</field>
+            <field name="country_id" ref="base.ae"/>
+        </record>
+        <record id="partner_cust_5" model="res.partner">
+            <field name="name">Bin Saeed Family Office</field>
+            <field name="is_company" eval="True"/>
+            <field name="customer_rank">1</field>
+            <field name="city">Dubai</field>
+            <field name="country_id" ref="base.ae"/>
+        </record>
+        <record id="partner_cust_6" model="res.partner">
+            <field name="name">Skyline Events LLC</field>
+            <field name="is_company" eval="True"/>
+            <field name="customer_rank">1</field>
+            <field name="city">Dubai</field>
+            <field name="country_id" ref="base.ae"/>
+        </record>
+
+        <!-- ============================================================ -->
+        <!-- Suppliers                                                     -->
+        <!-- ============================================================ -->
         <record id="partner_domes" model="res.partner">
             <field name="name">Domes Resorts (Supplier)</field>
             <field name="is_company" eval="True"/>
@@ -25,8 +66,25 @@
             <field name="is_company" eval="True"/>
             <field name="supplier_rank">1</field>
         </record>
+        <record id="partner_sup_hotel" model="res.partner">
+            <field name="name">Atlantis Hotels (Supplier)</field>
+            <field name="is_company" eval="True"/>
+            <field name="supplier_rank">1</field>
+        </record>
+        <record id="partner_sup_air" model="res.partner">
+            <field name="name">Skylink Charters (Supplier)</field>
+            <field name="is_company" eval="True"/>
+            <field name="supplier_rank">1</field>
+        </record>
+        <record id="partner_sup_guide" model="res.partner">
+            <field name="name">Balkan Guides d.o.o. (Supplier)</field>
+            <field name="is_company" eval="True"/>
+            <field name="supplier_rank">1</field>
+        </record>
 
-        <!-- ============ Tour Packages ============ -->
+        <!-- ============================================================ -->
+        <!-- Tour Packages                                                 -->
+        <!-- ============================================================ -->
         <record id="pkg_city_dubai" model="oceanair.tour.package">
             <field name="name">Dubai City Tour</field>
             <field name="code">CITY-DXB</field>
@@ -68,11 +126,16 @@
             <field name="default_price">2100</field>
         </record>
 
-        <!-- ============ Sample Booking (confirmed) ============ -->
+        <!-- ============================================================ -->
+        <!-- Bookings + supplier costs                                     -->
+        <!-- ============================================================ -->
+
+        <!-- 01 Egypt / Al Salah / Confirmed (ready to invoice live) -->
         <record id="booking_demo_egypt" model="oceanair.tour.booking">
             <field name="partner_id" ref="partner_alsalah"/>
             <field name="package_id" ref="pkg_egypt"/>
             <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-06-08</field>
             <field name="pax_adults">2</field>
             <field name="pax_children">1</field>
             <field name="unit_price">3200</field>
@@ -103,11 +166,12 @@
             <field name="unit_cost">200</field>
         </record>
 
-        <!-- A second booking to make reporting look real -->
+        <!-- 02 Safari / Al Salah / Draft -->
         <record id="booking_demo_safari" model="oceanair.tour.booking">
             <field name="partner_id" ref="partner_alsalah"/>
             <field name="package_id" ref="pkg_safari"/>
             <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-06-07</field>
             <field name="pax_adults">4</field>
             <field name="pax_children">0</field>
             <field name="unit_price">250</field>
@@ -120,6 +184,427 @@
             <field name="vendor_id" ref="partner_safari"/>
             <field name="quantity">4</field>
             <field name="unit_cost">120</field>
+        </record>
+
+        <!-- 03 City / Gulf Corporate / Invoiced -->
+        <record id="booking_03" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_2"/>
+            <field name="package_id" ref="pkg_city_dubai"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-01-12</field>
+            <field name="pax_adults">6</field>
+            <field name="unit_price">350</field>
+            <field name="state">invoiced</field>
+        </record>
+        <record id="cost_03_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_03"/>
+            <field name="name">Luxury Coach + Driver</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_sup_air"/>
+            <field name="quantity">4</field>
+            <field name="unit_cost">80</field>
+        </record>
+
+        <!-- 04 Croatia / Emirates Leisure / Completed -->
+        <record id="booking_04" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_3"/>
+            <field name="package_id" ref="pkg_croatia"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-02-03</field>
+            <field name="pax_adults">2</field>
+            <field name="unit_price">5400</field>
+            <field name="state">done</field>
+        </record>
+        <record id="cost_04_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_04"/>
+            <field name="name">Boutique Hotel (7N, twin)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_sup_hotel"/>
+            <field name="quantity">2</field>
+            <field name="unit_cost">2200</field>
+        </record>
+        <record id="cost_04_2" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_04"/>
+            <field name="name">Private Guide (Dubrovnik &amp; Split)</field>
+            <field name="cost_type">guide</field>
+            <field name="vendor_id" ref="partner_sup_guide"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">500</field>
+        </record>
+
+        <!-- 05 Egypt / Falcon Tours / Invoiced -->
+        <record id="booking_05" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_4"/>
+            <field name="package_id" ref="pkg_egypt"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-02-18</field>
+            <field name="pax_adults">4</field>
+            <field name="pax_children">2</field>
+            <field name="unit_price">3200</field>
+            <field name="state">invoiced</field>
+        </record>
+        <record id="cost_05_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_05"/>
+            <field name="name">Nile Cruise Cabins (5N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">6</field>
+            <field name="unit_cost">1400</field>
+        </record>
+        <record id="cost_05_2" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_05"/>
+            <field name="name">Group Transfers</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">400</field>
+        </record>
+
+        <!-- 06 Safari / Bin Saeed / Confirmed -->
+        <record id="booking_06" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_5"/>
+            <field name="package_id" ref="pkg_safari"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-03-05</field>
+            <field name="pax_adults">8</field>
+            <field name="unit_price">250</field>
+            <field name="state">confirmed</field>
+        </record>
+        <record id="cost_06_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_06"/>
+            <field name="name">Safari Fleet (2 vehicles) + Dinner</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_safari"/>
+            <field name="quantity">8</field>
+            <field name="unit_cost">110</field>
+        </record>
+
+        <!-- 07 Domes / Gulf Corporate / Invoiced -->
+        <record id="booking_07" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_2"/>
+            <field name="package_id" ref="pkg_domes"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-03-22</field>
+            <field name="pax_adults">2</field>
+            <field name="unit_price">2100</field>
+            <field name="state">invoiced</field>
+        </record>
+        <record id="cost_07_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_07"/>
+            <field name="name">Domes Suite (3N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_domes"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">2400</field>
+        </record>
+
+        <!-- 08 City / Skyline Events / Completed -->
+        <record id="booking_08" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_6"/>
+            <field name="package_id" ref="pkg_city_dubai"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-01-28</field>
+            <field name="pax_adults">10</field>
+            <field name="unit_price">350</field>
+            <field name="state">done</field>
+        </record>
+        <record id="cost_08_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_08"/>
+            <field name="name">Event Coach + City Passes</field>
+            <field name="cost_type">tickets</field>
+            <field name="vendor_id" ref="partner_sup_air"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">1500</field>
+        </record>
+
+        <!-- 09 Croatia / Falcon Tours / Confirmed -->
+        <record id="booking_09" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_4"/>
+            <field name="package_id" ref="pkg_croatia"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-04-10</field>
+            <field name="pax_adults">4</field>
+            <field name="unit_price">5400</field>
+            <field name="state">confirmed</field>
+        </record>
+        <record id="cost_09_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_09"/>
+            <field name="name">Sea-view Hotel (7N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_sup_hotel"/>
+            <field name="quantity">4</field>
+            <field name="unit_cost">2100</field>
+        </record>
+        <record id="cost_09_2" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_09"/>
+            <field name="name">Excursions &amp; Guide</field>
+            <field name="cost_type">guide</field>
+            <field name="vendor_id" ref="partner_sup_guide"/>
+            <field name="quantity">2</field>
+            <field name="unit_cost">400</field>
+        </record>
+
+        <!-- 10 Egypt / Bin Saeed / Draft -->
+        <record id="booking_10" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_5"/>
+            <field name="package_id" ref="pkg_egypt"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-04-25</field>
+            <field name="pax_adults">2</field>
+            <field name="unit_price">3200</field>
+            <field name="state">draft</field>
+        </record>
+        <record id="cost_10_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_10"/>
+            <field name="name">Nile Cruise Cabin (5N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">2</field>
+            <field name="unit_cost">1500</field>
+        </record>
+
+        <!-- 11 Safari / Emirates Leisure / Invoiced -->
+        <record id="booking_11" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_3"/>
+            <field name="package_id" ref="pkg_safari"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-05-02</field>
+            <field name="pax_adults">6</field>
+            <field name="pax_children">2</field>
+            <field name="unit_price">250</field>
+            <field name="state">invoiced</field>
+        </record>
+        <record id="cost_11_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_11"/>
+            <field name="name">Safari Fleet + Dinner</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_safari"/>
+            <field name="quantity">8</field>
+            <field name="unit_cost">100</field>
+        </record>
+
+        <!-- 12 Domes / Skyline Events / Completed -->
+        <record id="booking_12" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_6"/>
+            <field name="package_id" ref="pkg_domes"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-05-15</field>
+            <field name="pax_adults">4</field>
+            <field name="unit_price">2100</field>
+            <field name="state">done</field>
+        </record>
+        <record id="cost_12_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_12"/>
+            <field name="name">Domes Suites (3N x2)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_domes"/>
+            <field name="quantity">2</field>
+            <field name="unit_cost">2200</field>
+        </record>
+
+        <!-- 13 City / Bin Saeed / Confirmed -->
+        <record id="booking_13" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_5"/>
+            <field name="package_id" ref="pkg_city_dubai"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-05-20</field>
+            <field name="pax_adults">3</field>
+            <field name="pax_children">1</field>
+            <field name="unit_price">350</field>
+            <field name="state">confirmed</field>
+        </record>
+        <record id="cost_13_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_13"/>
+            <field name="name">Private Van + Guide (Half Day)</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_safari"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">600</field>
+        </record>
+
+        <!-- 14 Croatia / Gulf Corporate / Invoiced -->
+        <record id="booking_14" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_2"/>
+            <field name="package_id" ref="pkg_croatia"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-03-12</field>
+            <field name="pax_adults">2</field>
+            <field name="unit_price">5400</field>
+            <field name="state">invoiced</field>
+        </record>
+        <record id="cost_14_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_14"/>
+            <field name="name">Coastal Hotel (7N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_sup_hotel"/>
+            <field name="quantity">2</field>
+            <field name="unit_cost">2000</field>
+        </record>
+
+        <!-- 15 Egypt / Skyline Events / Completed -->
+        <record id="booking_15" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_6"/>
+            <field name="package_id" ref="pkg_egypt"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-02-26</field>
+            <field name="pax_adults">6</field>
+            <field name="unit_price">3200</field>
+            <field name="state">done</field>
+        </record>
+        <record id="cost_15_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_15"/>
+            <field name="name">Nile Cruise Cabins (5N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">6</field>
+            <field name="unit_cost">1300</field>
+        </record>
+        <record id="cost_15_2" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_15"/>
+            <field name="name">Group Transfers &amp; Tickets</field>
+            <field name="cost_type">tickets</field>
+            <field name="vendor_id" ref="partner_nile"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">500</field>
+        </record>
+
+        <!-- 16 Safari / Falcon Tours / Cancelled -->
+        <record id="booking_16" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_4"/>
+            <field name="package_id" ref="pkg_safari"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-04-02</field>
+            <field name="pax_adults">4</field>
+            <field name="unit_price">250</field>
+            <field name="state">cancel</field>
+        </record>
+        <record id="cost_16_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_16"/>
+            <field name="name">Safari Vehicle + Dinner</field>
+            <field name="cost_type">transport</field>
+            <field name="vendor_id" ref="partner_safari"/>
+            <field name="quantity">4</field>
+            <field name="unit_cost">120</field>
+        </record>
+
+        <!-- 17 Domes / Emirates Leisure / Confirmed -->
+        <record id="booking_17" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_3"/>
+            <field name="package_id" ref="pkg_domes"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-06-01</field>
+            <field name="pax_adults">2</field>
+            <field name="pax_children">1</field>
+            <field name="unit_price">2100</field>
+            <field name="state">confirmed</field>
+        </record>
+        <record id="cost_17_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_17"/>
+            <field name="name">Domes Family Suite (3N)</field>
+            <field name="cost_type">hotel</field>
+            <field name="vendor_id" ref="partner_domes"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">2600</field>
+        </record>
+
+        <!-- 18 City / Falcon Tours / Invoiced -->
+        <record id="booking_18" model="oceanair.tour.booking">
+            <field name="partner_id" ref="partner_cust_4"/>
+            <field name="package_id" ref="pkg_city_dubai"/>
+            <field name="sales_agent_id" ref="base.user_admin"/>
+            <field name="date_from">2026-06-05</field>
+            <field name="pax_adults">8</field>
+            <field name="unit_price">350</field>
+            <field name="state">invoiced</field>
+        </record>
+        <record id="cost_18_1" model="oceanair.tour.cost.line">
+            <field name="booking_id" ref="booking_18"/>
+            <field name="name">Group Coach + City Passes</field>
+            <field name="cost_type">tickets</field>
+            <field name="vendor_id" ref="partner_sup_air"/>
+            <field name="quantity">1</field>
+            <field name="unit_cost">1200</field>
+        </record>
+
+        <!-- ============================================================ -->
+        <!-- CRM Opportunities (pipeline demo)                             -->
+        <!-- ============================================================ -->
+        <record id="crm_opp_1" model="crm.lead">
+            <field name="name">Egypt Nile Cruise - Corporate Group (20 pax)</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_cust_2"/>
+            <field name="contact_name">Omar Haddad</field>
+            <field name="email_from">omar@gulfcorptravel.example</field>
+            <field name="phone">+971 50 111 2233</field>
+            <field name="expected_revenue">64000</field>
+            <field name="probability">60</field>
+            <field name="stage_id" ref="crm.stage_lead2"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="crm_opp_2" model="crm.lead">
+            <field name="name">Croatia Coastal Escape - Honeymoon Package</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_cust_3"/>
+            <field name="contact_name">Layla Hassan</field>
+            <field name="email_from">layla@emiratesleisure.example</field>
+            <field name="phone">+971 55 222 3344</field>
+            <field name="expected_revenue">10800</field>
+            <field name="probability">40</field>
+            <field name="stage_id" ref="crm.stage_lead3"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="crm_opp_3" model="crm.lead">
+            <field name="name">Desert Safari - MICE Event (50 pax)</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_cust_6"/>
+            <field name="contact_name">Sara Mansour</field>
+            <field name="email_from">sara@skylineevents.example</field>
+            <field name="phone">+971 56 333 4455</field>
+            <field name="expected_revenue">12500</field>
+            <field name="probability">30</field>
+            <field name="stage_id" ref="crm.stage_lead1"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="crm_opp_4" model="crm.lead">
+            <field name="name">Domes Luxury Retreat - VIP Family</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_cust_5"/>
+            <field name="contact_name">Khalid Bin Saeed</field>
+            <field name="email_from">office@binsaeed.example</field>
+            <field name="phone">+971 50 444 5566</field>
+            <field name="expected_revenue">8400</field>
+            <field name="probability">50</field>
+            <field name="stage_id" ref="crm.stage_lead3"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="crm_opp_5" model="crm.lead">
+            <field name="name">Dubai City Tours - School Groups (Term 2)</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_cust_4"/>
+            <field name="contact_name">Ahmed Noor</field>
+            <field name="email_from">ahmed@falcontours.example</field>
+            <field name="phone">+971 52 555 6677</field>
+            <field name="expected_revenue">7000</field>
+            <field name="probability">45</field>
+            <field name="stage_id" ref="crm.stage_lead2"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="crm_opp_6" model="crm.lead">
+            <field name="name">Al Salah Group - Annual Travel Contract</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_alsalah"/>
+            <field name="contact_name">Essam Al Salah</field>
+            <field name="email_from">essam@oceanairtravels.com</field>
+            <field name="phone">+971 50 676 5638</field>
+            <field name="expected_revenue">150000</field>
+            <field name="probability">70</field>
+            <field name="stage_id" ref="crm.stage_lead1"/>
+            <field name="user_id" ref="base.user_admin"/>
         </record>
 
     </data>

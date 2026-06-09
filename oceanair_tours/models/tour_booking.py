@@ -67,6 +67,9 @@ class TourBooking(models.Model):
         string='Vendor Bills', copy=False)
     vendor_bill_count = fields.Integer(
         string='Vendor Bills', compute='_compute_counts')
+    task_id = fields.Many2one(
+        'project.task', string='Project Task', readonly=True, copy=False)
+    task_count = fields.Integer(string='Tasks', compute='_compute_counts')
     lead_id = fields.Many2one(
         'crm.lead', string='Source Opportunity', copy=False)
     analytic_account_id = fields.Many2one(
@@ -91,11 +94,12 @@ class TourBooking(models.Model):
                 (rec.margin / rec.amount_sale) * 100.0
                 if rec.amount_sale else 0.0)
 
-    @api.depends('invoice_id', 'vendor_bill_ids')
+    @api.depends('invoice_id', 'vendor_bill_ids', 'task_id')
     def _compute_counts(self):
         for rec in self:
             rec.invoice_count = 1 if rec.invoice_id else 0
             rec.vendor_bill_count = len(rec.vendor_bill_ids)
+            rec.task_count = 1 if rec.task_id else 0
 
     # ------------------------------------------------------------------
     # Onchange / Create
@@ -169,6 +173,10 @@ class TourBooking(models.Model):
 
     def action_create_vendor_bills(self):
         self.ensure_one()
+        if self.vendor_bill_ids:
+            raise UserError(
+                _('Vendor bills have already been generated for this '
+                  'booking.'))
         product = self.env.ref(
             'oceanair_tours.product_tour_service', raise_if_not_found=False)
         Move = self.env['account.move']
@@ -232,4 +240,36 @@ class TourBooking(models.Model):
             'res_model': 'account.move',
             'view_mode': 'list,form',
             'domain': [('id', 'in', self.vendor_bill_ids.ids)],
+        }
+
+    # ------------------------------------------------------------------
+    # Project hand-off
+    # ------------------------------------------------------------------
+    def action_create_project_task(self):
+        self.ensure_one()
+        if self.task_id:
+            raise UserError(
+                _('A project task already exists for this booking.'))
+        project = self.env.ref(
+            'oceanair_tours.project_tour_ops', raise_if_not_found=False)
+        vals = {
+            'name': _('Operations: %s') % (self.name or ''),
+            'partner_id': self.partner_id.id,
+        }
+        if project:
+            vals['project_id'] = project.id
+        task = self.env['project.task'].create(vals)
+        self.task_id = task.id
+        return self.action_view_task()
+
+    def action_view_task(self):
+        self.ensure_one()
+        if not self.task_id:
+            return False
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'project.task',
+            'res_id': self.task_id.id,
+            'view_mode': 'form',
+            'target': 'current',
         }

@@ -16,7 +16,10 @@
                             invisible="state != 'confirmed'"/>
                     <button name="action_create_vendor_bills" type="object"
                             string="Generate Vendor Bills"
-                            invisible="state == 'draft' or not cost_line_ids"/>
+                            invisible="state == 'draft' or not cost_line_ids or vendor_bill_count &gt; 0"/>
+                    <button name="action_create_project_task" type="object"
+                            string="Create Project Task"
+                            invisible="state == 'draft' or task_count &gt; 0"/>
                     <button name="action_done" type="object"
                             string="Mark Completed"
                             invisible="state != 'invoiced'"/>
@@ -44,6 +47,12 @@
                             <field name="vendor_bill_count" widget="statinfo"
                                    string="Vendor Bills"/>
                         </button>
+                        <button name="action_view_task" type="object"
+                                class="oe_stat_button" icon="fa-tasks"
+                                invisible="task_count == 0">
+                            <field name="task_count" widget="statinfo"
+                                   string="Tasks"/>
+                        </button>
                     </div>
                     <div class="oe_title">
                         <label for="name"/>
@@ -61,14 +70,9 @@
                         <group>
                             <field name="date_from"/>
                             <field name="date_to"/>
-                            <label for="pax_adults" string="Passengers"/>
-                            <div class="o_row">
-                                <field name="pax_adults"/>
-                                <span> Adults / </span>
-                                <field name="pax_children"/>
-                                <span> Children = </span>
-                                <field name="pax_total"/>
-                            </div>
+                            <field name="pax_adults"/>
+                            <field name="pax_children"/>
+                            <field name="pax_total"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="unit_price"/>
                         </group>
