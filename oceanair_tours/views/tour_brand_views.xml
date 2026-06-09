@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_oceanair_brand_list" model="ir.ui.view">
+        <field name="name">oceanair.brand.list</field>
+        <field name="model">oceanair.brand</field>
+        <field name="arch" type="xml">
+            <list string="Group Brands" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="segment"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_oceanair_brand" model="ir.actions.act_window">
+        <field name="name">Group Brands</field>
+        <field name="res_model">oceanair.brand</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add the Al Salah Group brands
+            </p>
+            <p>Each operating brand (travel, desert camps, F&amp;B, equestrian,
+               mobility) becomes a reporting dimension — the bridge to running
+               the whole holding in one Odoo.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -28,6 +28,8 @@ End-to-end Tour Operations workflow demo for Odoo 19 Enterprise:
         'data/sequence.xml',
         'data/product_data.xml',
         'data/project_data.xml',
+        'data/catalog_data.xml',
+        'views/tour_brand_views.xml',
         'views/tour_package_views.xml',
         'views/tour_booking_views.xml',
         'views/crm_lead_views.xml',

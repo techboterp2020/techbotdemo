@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Config-style catalog: refreshed on every module upgrade so brand
+         tags also land on previously-created packages. -->
+    <data noupdate="0">
+
+        <!-- ============================================================ -->
+        <!-- Group Brands (Al Salah Holding portfolio)                     -->
+        <!-- ============================================================ -->
+        <record id="brand_oceanair" model="oceanair.brand">
+            <field name="name">OceanAir Travels</field>
+            <field name="code">OAT</field>
+            <field name="sequence">1</field>
+            <field name="segment">travel</field>
+        </record>
+        <record id="brand_alkhayma_camp" model="oceanair.brand">
+            <field name="name">Al Khayma Camps</field>
+            <field name="code">AKC</field>
+            <field name="sequence">2</field>
+            <field name="segment">desert</field>
+        </record>
+        <record id="brand_marmoom" model="oceanair.brand">
+            <field name="name">Al Marmoom Oasis / Domes</field>
+            <field name="code">AMD</field>
+            <field name="sequence">3</field>
+            <field name="segment">desert</field>
+        </record>
+        <record id="brand_albadya" model="oceanair.brand">
+            <field name="name">Al Badya Village</field>
+            <field name="code">ABV</field>
+            <field name="sequence">4</field>
+            <field name="segment">fnb</field>
+        </record>
+        <record id="brand_alkhayma_rest" model="oceanair.brand">
+            <field name="name">Al Khayma Heritage Restaurants</field>
+            <field name="code">AKR</field>
+            <field name="sequence">5</field>
+            <field name="segment">fnb</field>
+        </record>
+        <record id="brand_stud" model="oceanair.brand">
+            <field name="name">Al Salah Stud</field>
+            <field name="code">ASS</field>
+            <field name="sequence">6</field>
+            <field name="segment">equestrian</field>
+        </record>
+        <record id="brand_north" model="oceanair.brand">
+            <field name="name">North Car Rentals</field>
+            <field name="code">NCR</field>
+            <field name="sequence">7</field>
+            <field name="segment">mobility</field>
+        </record>
+
+        <!-- ============================================================ -->
+        <!-- Tour / Experience Packages                                    -->
+        <!-- ============================================================ -->
+        <record id="pkg_city_dubai" model="oceanair.tour.package">
+            <field name="name">Dubai City Tour</field>
+            <field name="code">CITY-DXB</field>
+            <field name="brand_id" ref="brand_oceanair"/>
+            <field name="tour_type">city</field>
+            <field name="destination">Dubai, UAE</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">350</field>
+        </record>
+        <record id="pkg_safari" model="oceanair.tour.package">
+            <field name="name">Desert Safari Adventure</field>
+            <field name="code">SAFARI-DXB</field>
+            <field name="brand_id" ref="brand_alkhayma_camp"/>
+            <field name="tour_type">safari</field>
+            <field name="destination">Dubai Desert</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">250</field>
+        </record>
+        <record id="pkg_safari_premium" model="oceanair.tour.package">
+            <field name="name">Premium Red Dunes &amp; Camel Safari + BBQ</field>
+            <field name="code">SAFARI-PREM</field>
+            <field name="brand_id" ref="brand_alkhayma_camp"/>
+            <field name="tour_type">safari</field>
+            <field name="destination">Al Khayma Camp, Dubai</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">390</field>
+        </record>
+        <record id="pkg_safari_morning" model="oceanair.tour.package">
+            <field name="name">Morning Safari – Vintage G-Class (Al Marmoom)</field>
+            <field name="code">SAFARI-MORN</field>
+            <field name="brand_id" ref="brand_marmoom"/>
+            <field name="tour_type">safari</field>
+            <field name="destination">Al Marmoom Reserve</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">490</field>
+        </record>
+        <record id="pkg_egypt" model="oceanair.tour.package">
+            <field name="name">Egypt Nile Cruise (5N)</field>
+            <field name="code">EGY-NILE</field>
+            <field name="brand_id" ref="brand_oceanair"/>
+            <field name="tour_type">egypt</field>
+            <field name="destination">Cairo &amp; Luxor, Egypt</field>
+            <field name="duration_days">5</field>
+            <field name="default_price">3200</field>
+        </record>
+        <record id="pkg_croatia" model="oceanair.tour.package">
+            <field name="name">Croatia Coastal Escape (7N)</field>
+            <field name="code">CRO-COAST</field>
+            <field name="brand_id" ref="brand_oceanair"/>
+            <field name="tour_type">croatia</field>
+            <field name="destination">Dubrovnik &amp; Split, Croatia</field>
+            <field name="duration_days">7</field>
+            <field name="default_price">5400</field>
+        </record>
+        <record id="pkg_bosnia" model="oceanair.tour.package">
+            <field name="name">Bosnia Highlights (6N)</field>
+            <field name="code">BIH-HL</field>
+            <field name="brand_id" ref="brand_oceanair"/>
+            <field name="tour_type">bosnia</field>
+            <field name="destination">Sarajevo &amp; Mostar, Bosnia</field>
+            <field name="duration_days">6</field>
+            <field name="default_price">4800</field>
+        </record>
+        <record id="pkg_oman" model="oceanair.tour.package">
+            <field name="name">Oman Coastal &amp; Mountains (4N)</field>
+            <field name="code">OMN-CM</field>
+            <field name="brand_id" ref="brand_oceanair"/>
+            <field name="tour_type">oman</field>
+            <field name="destination">Muscat &amp; Nizwa, Oman</field>
+            <field name="duration_days">4</field>
+            <field name="default_price">3600</field>
+        </record>
+        <record id="pkg_domes" model="oceanair.tour.package">
+            <field name="name">Al Marmoom Domes – Luxury Stay (3N)</field>
+            <field name="code">DOMES-3N</field>
+            <field name="brand_id" ref="brand_marmoom"/>
+            <field name="tour_type">domes</field>
+            <field name="destination">Al Marmoom, Dubai</field>
+            <field name="duration_days">3</field>
+            <field name="default_price">2100</field>
+        </record>
+        <record id="pkg_domes_luxury" model="oceanair.tour.package">
+            <field name="name">Al Marmoom Domes – Luxury Half-Board (USD)</field>
+            <field name="code">DOMES-HB</field>
+            <field name="brand_id" ref="brand_marmoom"/>
+            <field name="tour_type">domes</field>
+            <field name="destination">Al Marmoom, Dubai</field>
+            <field name="duration_days">1</field>
+            <field name="currency_id" ref="base.USD"/>
+            <field name="default_price">1416</field>
+        </record>
+        <record id="pkg_albadya" model="oceanair.tour.package">
+            <field name="name">Al Badya Village Heritage Dinner</field>
+            <field name="code">ABV-DIN</field>
+            <field name="brand_id" ref="brand_albadya"/>
+            <field name="tour_type">dining</field>
+            <field name="destination">Al Badya Village, Dubai</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">295</field>
+        </record>
+        <record id="pkg_alkhayma_rest" model="oceanair.tour.package">
+            <field name="name">Al Khayma Heritage Restaurant (Michelin)</field>
+            <field name="code">AKR-DIN</field>
+            <field name="brand_id" ref="brand_alkhayma_rest"/>
+            <field name="tour_type">dining</field>
+            <field name="destination">Dubai / Abu Dhabi</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">350</field>
+        </record>
+        <record id="pkg_stud" model="oceanair.tour.package">
+            <field name="name">Al Salah Stud – Arabian Horse Experience</field>
+            <field name="code">STUD-EXP</field>
+            <field name="brand_id" ref="brand_stud"/>
+            <field name="tour_type">custom</field>
+            <field name="destination">Dubai</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">450</field>
+        </record>
+        <record id="pkg_north_ev" model="oceanair.tour.package">
+            <field name="name">North Car Rentals – Premium EV Day Hire</field>
+            <field name="code">NCR-EV</field>
+            <field name="brand_id" ref="brand_north"/>
+            <field name="tour_type">custom</field>
+            <field name="destination">Dubai</field>
+            <field name="duration_days">1</field>
+            <field name="default_price">600</field>
+        </record>
+        <record id="pkg_mice" model="oceanair.tour.package">
+            <field name="name">MICE – Corporate Incentive (Dubai)</field>
+            <field name="code">MICE-DXB</field>
+            <field name="brand_id" ref="brand_oceanair"/>
+            <field name="tour_type">mice</field>
+            <field name="destination">Dubai, UAE</field>
+            <field name="duration_days">2</field>
+            <field name="default_price">1800</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tour_brand_user,tour.brand.user,model_oceanair_brand,group_oceanair_user,1,1,1,1
 access_tour_package_user,tour.package.user,model_oceanair_tour_package,group_oceanair_user,1,1,1,1
 access_tour_booking_user,tour.booking.user,model_oceanair_tour_booking,group_oceanair_user,1,1,1,1
 access_tour_cost_line_user,tour.cost.line.user,model_oceanair_tour_cost_line,group_oceanair_user,1,1,1,1

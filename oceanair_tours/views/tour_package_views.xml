@@ -8,6 +8,7 @@
             <list string="Tour Packages">
                 <field name="code"/>
                 <field name="name"/>
+                <field name="brand_id"/>
                 <field name="tour_type"/>
                 <field name="destination"/>
                 <field name="duration_days"/>
@@ -40,6 +41,7 @@
                     <group>
                         <group>
                             <field name="code"/>
+                            <field name="brand_id"/>
                             <field name="tour_type"/>
                             <field name="destination"/>
                         </group>

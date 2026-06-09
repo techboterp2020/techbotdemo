@@ -15,8 +15,16 @@ class TourBooking(models.Model):
         'res.partner', string='Customer', required=True, tracking=True)
     package_id = fields.Many2one(
         'oceanair.tour.package', string='Tour Package', tracking=True)
+    brand_id = fields.Many2one(
+        related='package_id.brand_id', string='Group Brand', store=True)
     tour_type = fields.Selection(
         related='package_id.tour_type', string='Tour Type', store=True)
+    sale_channel = fields.Selection([
+        ('direct', 'Direct / Website'),
+        ('b2b', 'B2B / Trade'),
+        ('ota', 'OTA / Marketplace'),
+        ('corporate', 'Corporate Account'),
+    ], string='Sales Channel', default='direct', tracking=True)
     sales_agent_id = fields.Many2one(
         'res.users', string='Sales Agent',
         default=lambda self: self.env.user, tracking=True)

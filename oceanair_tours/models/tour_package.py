@@ -8,12 +8,17 @@ class TourPackage(models.Model):
 
     name = fields.Char(string='Package Name', required=True)
     code = fields.Char(string='Reference')
+    brand_id = fields.Many2one('oceanair.brand', string='Group Brand')
     tour_type = fields.Selection([
         ('city', 'City Tour'),
-        ('safari', 'Safari Tour'),
+        ('safari', 'Desert Safari'),
         ('egypt', 'Egypt Tour'),
         ('croatia', 'Croatia Tour'),
-        ('domes', 'Domes / Stay'),
+        ('bosnia', 'Bosnia Tour'),
+        ('oman', 'Oman / GCC Tour'),
+        ('domes', 'Luxury Domes / Stay'),
+        ('dining', 'Heritage Dining (F&B)'),
+        ('mice', 'MICE / Corporate'),
         ('custom', 'Custom Package'),
     ], string='Tour Type', default='city', required=True)
     destination = fields.Char(string='Destination')

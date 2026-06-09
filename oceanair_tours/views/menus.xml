@@ -30,4 +30,10 @@
               action="action_oceanair_package"
               sequence="10"/>
 
+    <menuitem id="menu_oceanair_brands"
+              name="Group Brands"
+              parent="menu_oceanair_config"
+              action="action_oceanair_brand"
+              sequence="20"/>
+
 </odoo>

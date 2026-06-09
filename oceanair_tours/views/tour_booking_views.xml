@@ -62,7 +62,9 @@
                         <group>
                             <field name="partner_id"/>
                             <field name="package_id"/>
+                            <field name="brand_id" readonly="1"/>
                             <field name="tour_type"/>
+                            <field name="sale_channel"/>
                             <field name="sales_agent_id"/>
                             <field name="lead_id" readonly="1"
                                    invisible="not lead_id"/>
@@ -128,15 +130,17 @@
                   decoration-muted="state == 'cancel'">
                 <field name="name"/>
                 <field name="partner_id"/>
+                <field name="brand_id" optional="show"/>
                 <field name="package_id"/>
                 <field name="tour_type"/>
+                <field name="sale_channel" optional="hide"/>
                 <field name="date_from"/>
                 <field name="pax_total"/>
                 <field name="amount_sale" sum="Total Sales"/>
                 <field name="amount_cost" sum="Total Cost"/>
                 <field name="margin" sum="Total Margin"/>
                 <field name="margin_pct"/>
-                <field name="sales_agent_id" optional="show"/>
+                <field name="sales_agent_id" optional="hide"/>
                 <field name="state" widget="badge"
                        decoration-info="state == 'draft'"
                        decoration-success="state in ('invoiced', 'done')"/>
@@ -153,6 +157,7 @@
             <search string="Tour Bookings">
                 <field name="name"/>
                 <field name="partner_id"/>
+                <field name="brand_id"/>
                 <field name="package_id"/>
                 <field name="sales_agent_id"/>
                 <filter name="draft" string="Draft"
@@ -162,10 +167,12 @@
                 <filter name="invoiced" string="Invoiced"
                         domain="[('state', '=', 'invoiced')]"/>
                 <separator/>
+                <filter name="g_brand" string="Group Brand"
+                        context="{'group_by': 'brand_id'}"/>
                 <filter name="g_type" string="Tour Type"
                         context="{'group_by': 'tour_type'}"/>
-                <filter name="g_agent" string="Sales Agent"
-                        context="{'group_by': 'sales_agent_id'}"/>
+                <filter name="g_channel" string="Sales Channel"
+                        context="{'group_by': 'sale_channel'}"/>
                 <filter name="g_partner" string="Customer"
                         context="{'group_by': 'partner_id'}"/>
                 <filter name="g_state" string="Status"
@@ -180,7 +187,8 @@
         <field name="model">oceanair.tour.booking</field>
         <field name="arch" type="xml">
             <pivot string="Tour Profitability">
-                <field name="tour_type" type="row"/>
+                <field name="brand_id" type="row"/>
+                <field name="sale_channel" type="col"/>
                 <field name="amount_sale" type="measure"/>
                 <field name="amount_cost" type="measure"/>
                 <field name="margin" type="measure"/>
@@ -193,8 +201,8 @@
         <field name="name">oceanair.tour.booking.graph</field>
         <field name="model">oceanair.tour.booking</field>
         <field name="arch" type="xml">
-            <graph string="Tour Margin" type="bar">
-                <field name="tour_type"/>
+            <graph string="Margin by Brand" type="bar">
+                <field name="brand_id"/>
                 <field name="margin" type="measure"/>
             </graph>
         </field>
