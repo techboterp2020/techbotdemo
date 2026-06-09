@@ -158,18 +158,14 @@
                 <filter name="invoiced" string="Invoiced"
                         domain="[('state', '=', 'invoiced')]"/>
                 <separator/>
-                <filter name="my" string="My Bookings"
-                        domain="[('sales_agent_id', '=', uid)]"/>
-                <group string="Group By">
-                    <filter name="g_type" string="Tour Type"
-                            context="{'group_by': 'tour_type'}"/>
-                    <filter name="g_agent" string="Sales Agent"
-                            context="{'group_by': 'sales_agent_id'}"/>
-                    <filter name="g_partner" string="Customer"
-                            context="{'group_by': 'partner_id'}"/>
-                    <filter name="g_state" string="Status"
-                            context="{'group_by': 'state'}"/>
-                </group>
+                <filter name="g_type" string="Tour Type"
+                        context="{'group_by': 'tour_type'}"/>
+                <filter name="g_agent" string="Sales Agent"
+                        context="{'group_by': 'sales_agent_id'}"/>
+                <filter name="g_partner" string="Customer"
+                        context="{'group_by': 'partner_id'}"/>
+                <filter name="g_state" string="Status"
+                        context="{'group_by': 'state'}"/>
             </search>
         </field>
     </record>
