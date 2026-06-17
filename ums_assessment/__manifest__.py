@@ -26,6 +26,7 @@ University Management System — Assessment & Grading (FR-ASM-01 .. FR-ASM-09)
     ],
     'data': [
         'security/ir.model.access.csv',
+        'data/mail_templates.xml',
         'views/ums_grade_entry_views.xml',
         'views/ums_gpa_record_views.xml',
         'views/ums_graduation_views.xml',

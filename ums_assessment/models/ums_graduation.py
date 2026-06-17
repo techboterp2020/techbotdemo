@@ -103,6 +103,8 @@ class UmsGraduation(models.Model):
             grad.state = 'cleared'
 
     def action_graduate(self):
+        template = self.env.ref(
+            'ums_assessment.mail_template_graduation', raise_if_not_found=False)
         for grad in self:
             if grad.state != 'cleared':
                 raise UserError(_("Clearance is required before graduation."))
@@ -112,3 +114,5 @@ class UmsGraduation(models.Model):
                 or fields.Date.context_today(grad),
             })
             grad.student_id.change_status('graduated', _('Graduated'))
+            if template and grad.student_id.email:
+                template.send_mail(grad.id, force_send=False)

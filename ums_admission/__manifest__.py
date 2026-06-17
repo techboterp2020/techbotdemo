@@ -36,6 +36,7 @@ provided for downstream integration.
         'security/ums_admission_security.xml',
         'security/ir.model.access.csv',
         'data/ums_sequence_data.xml',
+        'data/mail_templates.xml',
         'views/ums_lead_views.xml',
         'views/ums_intake_views.xml',
         'views/ums_application_views.xml',

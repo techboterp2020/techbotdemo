@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Registration confirmed -->
+    <record id="mail_template_registration_confirmed" model="mail.template">
+        <field name="name">SIS: Registration Confirmed</field>
+        <field name="model_id" ref="ums_sis.model_ums_registration"/>
+        <field name="subject">Registration confirmed — {{ object.course_id.code }}</field>
+        <field name="email_from">{{ (user.email_formatted or '') }}</field>
+        <field name="partner_to">{{ object.student_id.partner_id.id }}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html" type="html">
+            <div style="font-family:Arial,sans-serif;color:#333;">
+                <p>Dear <t t-out="object.student_id.name"/>,</p>
+                <p>Your registration has been confirmed:</p>
+                <ul>
+                    <li><strong>Course:</strong> <t t-out="object.course_id.name_en or ''"/>
+                        (<t t-out="object.course_id.code or ''"/>)</li>
+                    <li><strong>Section:</strong> <t t-out="object.section_id.name or ''"/></li>
+                    <li><strong>Term:</strong> <t t-out="object.term_id.name or ''"/></li>
+                    <li><strong>Credit Hours:</strong> <t t-out="object.credit_hours"/></li>
+                </ul>
+                <p style="color:#0b6b5e;">تم تأكيد تسجيلك في المقرر.</p>
+                <p>Regards,<br/>Registrar's Office</p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Hold placed -->
+    <record id="mail_template_hold_placed" model="mail.template">
+        <field name="name">SIS: Hold Placed</field>
+        <field name="model_id" ref="ums_sis.model_ums_hold"/>
+        <field name="subject">Action required: a hold has been placed on your account</field>
+        <field name="email_from">{{ (user.email_formatted or '') }}</field>
+        <field name="partner_to">{{ object.student_id.partner_id.id }}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html" type="html">
+            <div style="font-family:Arial,sans-serif;color:#333;">
+                <p>Dear <t t-out="object.student_id.name"/>,</p>
+                <p>A <strong><t t-out="object.hold_type"/></strong> hold has been placed
+                    on your account.</p>
+                <p><strong>Reason:</strong> <t t-out="object.reason"/></p>
+                <p>This hold may prevent registration or the issuance of official
+                    documents until it is resolved. Please contact the relevant office.</p>
+                <p style="color:#b8911f;">تم وضع قيد على حسابك. يرجى مراجعة الجهة المختصة.</p>
+                <p>Regards,<br/>Student Services</p>
+            </div>
+        </field>
+    </record>
+
+</odoo>

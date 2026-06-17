@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Add an "Academics" card to the portal home (RFP unified portal). -->
+    <!-- Add an "Academics" card to the portal home (always visible, no count
+         gate so it shows for staff/preview as well as students). -->
     <template id="portal_my_home_academics" name="Portal My Home : Academics"
               inherit_id="portal.portal_my_home" priority="40">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Academics</t>
+                <t t-set="text">Registrations, grades, schedule and holds</t>
                 <t t-set="url" t-value="'/my/academics'"/>
-                <t t-set="placeholder_count" t-value="'registration_count'"/>
             </t>
         </xpath>
     </template>
@@ -17,11 +18,45 @@
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
             <div class="o_portal_my_doc_table">
-                <h3>Academic Record / السجل الأكاديمي</h3>
-                <p>
-                    <strong>Student:</strong> <span t-field="student.name"/> —
-                    <strong>University ID:</strong> <span t-field="student.university_id"/>
-                </p>
+
+                <t t-if="is_preview">
+                    <div class="alert alert-info" role="alert">
+                        <i class="fa fa-info-circle me-1"/> Staff preview — showing a
+                        sample student record. A logged-in student sees their own.
+                    </div>
+                </t>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="mb-0">Academic Record / السجل الأكاديمي</h3>
+                    <span class="badge bg-primary" t-esc="student.status"/>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-4"><strong>Student:</strong> <span t-field="student.name"/></div>
+                    <div class="col-md-4"><strong>University ID:</strong> <span t-field="student.university_id"/></div>
+                    <div class="col-md-4"><strong>Program:</strong> <span t-field="student.program_id"/></div>
+                </div>
+
+                <div class="row text-center mb-4">
+                    <div class="col-4">
+                        <div class="border rounded p-3">
+                            <div class="h4 mb-0 text-primary" t-esc="cgpa"/>
+                            <small class="text-muted">CGPA</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="border rounded p-3">
+                            <div class="h4 mb-0 text-primary" t-esc="len(registrations)"/>
+                            <small class="text-muted">Courses</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="border rounded p-3">
+                            <div class="h4 mb-0 text-primary" t-esc="len(holds)"/>
+                            <small class="text-muted">Active Holds</small>
+                        </div>
+                    </div>
+                </div>
 
                 <t t-if="holds">
                     <div class="alert alert-warning" role="alert">
@@ -30,7 +65,8 @@
                     </div>
                 </t>
 
-                <table class="table table-sm">
+                <h5>Courses</h5>
+                <table class="table table-sm table-hover">
                     <thead>
                         <tr>
                             <th>Term</th>
@@ -48,7 +84,10 @@
                             <td t-field="reg.section_id"/>
                             <td t-field="reg.credit_hours"/>
                             <td t-field="reg.grade_letter"/>
-                            <td t-field="reg.state"/>
+                            <td><span class="badge bg-secondary" t-esc="reg.state"/></td>
+                        </tr>
+                        <tr t-if="not registrations">
+                            <td colspan="6" class="text-center text-muted">No registrations yet.</td>
                         </tr>
                     </tbody>
                 </table>

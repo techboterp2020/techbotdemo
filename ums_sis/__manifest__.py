@@ -34,6 +34,7 @@ required by the commercial SIS scope.
         'security/ir.model.access.csv',
         'security/ums_sis_record_rules.xml',
         'data/ums_sequence_data.xml',
+        'data/mail_templates.xml',
         'views/ums_student_views.xml',
         'views/ums_registration_views.xml',
         'views/ums_hold_views.xml',

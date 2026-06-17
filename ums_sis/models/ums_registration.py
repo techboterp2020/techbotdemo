@@ -158,10 +158,14 @@ class UmsRegistration(models.Model):
             reg.state = 'registered'
 
     def action_confirm(self):
+        template = self.env.ref(
+            'ums_sis.mail_template_registration_confirmed', raise_if_not_found=False)
         for reg in self:
             if reg.state != 'registered':
                 raise UserError(_("Only registered courses can be confirmed."))
             reg.state = 'confirmed'
+            if template and reg.student_id.email:
+                template.send_mail(reg.id, force_send=False)
 
     def action_drop(self):
         """Drop within the add/drop window (FR-SIS-03)."""

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Application received confirmation -->
+    <record id="mail_template_application_submitted" model="mail.template">
+        <field name="name">Admission: Application Received</field>
+        <field name="model_id" ref="ums_admission.model_ums_application"/>
+        <field name="subject">Your application {{ object.name }} has been received</field>
+        <field name="email_from">{{ (user.email_formatted or '') }}</field>
+        <field name="email_to">{{ object.email }}</field>
+        <field name="lang">{{ object.program_id.language == 'ar' and 'ar_001' or 'en_US' }}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html" type="html">
+            <div style="font-family:Arial,sans-serif;color:#333;">
+                <p>Dear <t t-out="object.partner_name or 'Applicant'"/>,</p>
+                <p>Thank you for applying to
+                    <strong><t t-out="object.program_id.name_en or 'our university'"/></strong>.
+                    Your application <strong><t t-out="object.name"/></strong> has been
+                    received and is now under review.</p>
+                <p>We will notify you of the admission committee's decision. You can
+                    track your application status at any time.</p>
+                <p style="color:#0b6b5e;">شكراً لتقديمك. تم استلام طلبك وهو قيد المراجعة.</p>
+                <p>Regards,<br/>Admissions Office</p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Offer of admission -->
+    <record id="mail_template_offer_issued" model="mail.template">
+        <field name="name">Admission: Offer Issued</field>
+        <field name="model_id" ref="ums_admission.model_ums_application"/>
+        <field name="subject">🎉 Admission Offer — {{ object.program_id.name_en }}</field>
+        <field name="email_from">{{ (user.email_formatted or '') }}</field>
+        <field name="email_to">{{ object.email }}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html" type="html">
+            <div style="font-family:Arial,sans-serif;color:#333;">
+                <p>Dear <t t-out="object.partner_name or 'Applicant'"/>,</p>
+                <p>Congratulations! We are pleased to offer you admission to
+                    <strong><t t-out="object.program_id.name_en or ''"/></strong>
+                    for the <t t-out="object.intake_id.name or ''"/> intake.</p>
+                <p>Please log in to your applicant portal to review and accept your
+                    offer before the deadline.</p>
+                <p style="color:#0b6b5e;">تهانينا! يسعدنا قبولك في البرنامج. يرجى تسجيل الدخول لقبول العرض.</p>
+                <p>Warm regards,<br/>Admissions Office</p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Application not successful -->
+    <record id="mail_template_application_rejected" model="mail.template">
+        <field name="name">Admission: Application Declined</field>
+        <field name="model_id" ref="ums_admission.model_ums_application"/>
+        <field name="subject">Update on your application {{ object.name }}</field>
+        <field name="email_from">{{ (user.email_formatted or '') }}</field>
+        <field name="email_to">{{ object.email }}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html" type="html">
+            <div style="font-family:Arial,sans-serif;color:#333;">
+                <p>Dear <t t-out="object.partner_name or 'Applicant'"/>,</p>
+                <p>Thank you for your interest in
+                    <t t-out="object.program_id.name_en or 'our university'"/>.
+                    After careful review, we are unable to offer you admission for
+                    this intake.</p>
+                <p>We encourage you to apply again in a future intake. We wish you
+                    every success.</p>
+                <p>Regards,<br/>Admissions Office</p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Welcome / enrolment (student record) -->
+    <record id="mail_template_student_welcome" model="mail.template">
+        <field name="name">Admission: Student Welcome</field>
+        <field name="model_id" ref="ums_sis.model_ums_student"/>
+        <field name="subject">Welcome! Your University ID is {{ object.university_id }}</field>
+        <field name="email_from">{{ (user.email_formatted or '') }}</field>
+        <field name="partner_to">{{ object.partner_id.id }}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html" type="html">
+            <div style="font-family:Arial,sans-serif;color:#333;">
+                <p>Dear <t t-out="object.name"/>,</p>
+                <p>Welcome to the university! Your enrolment is complete.</p>
+                <ul>
+                    <li><strong>University ID:</strong> <t t-out="object.university_id"/></li>
+                    <li><strong>Program:</strong> <t t-out="object.program_id.name_en or ''"/></li>
+                </ul>
+                <p>You can now access the student portal to register for courses,
+                    view your schedule, grades and fees.</p>
+                <p style="color:#0b6b5e;">مرحباً بك في الجامعة! تم تسجيلك بنجاح.</p>
+                <p>Regards,<br/>Registrar's Office</p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Website enquiry acknowledgement (lead) -->
+    <record id="mail_template_lead_ack" model="mail.template">
+        <field name="name">Admission: Enquiry Acknowledgement</field>
+        <field name="model_id" ref="ums_admission.model_ums_lead"/>
+        <field name="subject">Thank you for your interest</field>
+        <field name="email_from">{{ (user.email_formatted or '') }}</field>
+        <field name="email_to">{{ object.email }}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html" type="html">
+            <div style="font-family:Arial,sans-serif;color:#333;">
+                <p>Dear <t t-out="object.name"/>,</p>
+                <p>Thank you for your interest in
+                    <t t-out="object.program_id.name_en or 'our programs'"/>.
+                    Our admissions team will contact you shortly with the next steps.</p>
+                <p style="color:#0b6b5e;">شكراً لاهتمامك. سيتواصل معك فريق القبول قريباً.</p>
+                <p>Regards,<br/>Admissions Office</p>
+            </div>
+        </field>
+    </record>
+
+</odoo>

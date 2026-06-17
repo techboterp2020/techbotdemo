@@ -93,6 +93,13 @@ class UmsApplication(models.Model):
     # ------------------------------------------------------------------
     # State machine (FR-ADM-06)
     # ------------------------------------------------------------------
+    def _send_mail(self, xmlid):
+        """Send a mail.template (queued) and log it on the record's chatter."""
+        self.ensure_one()
+        template = self.env.ref(xmlid, raise_if_not_found=False)
+        if template and self.email:
+            template.send_mail(self.id, force_send=False)
+
     def action_submit(self):
         for app in self:
             if not app.fee_paid:
@@ -100,6 +107,7 @@ class UmsApplication(models.Model):
                     "Application '%s' cannot be submitted before the application "
                     "fee is paid.", app.name))
             app.state = 'submitted'
+            app._send_mail('ums_admission.mail_template_application_submitted')
 
     def action_start_review(self):
         self.write({'state': 'under_review'})
@@ -118,6 +126,7 @@ class UmsApplication(models.Model):
                 'state': 'offer',
                 'offer_date': fields.Date.context_today(app),
             })
+            app._send_mail('ums_admission.mail_template_offer_issued')
 
     def action_accept_offer(self):
         for app in self:
@@ -130,6 +139,8 @@ class UmsApplication(models.Model):
 
     def action_reject(self):
         self.write({'state': 'rejected'})
+        for app in self:
+            app._send_mail('ums_admission.mail_template_application_rejected')
 
     def action_waitlist(self):
         self.write({'state': 'waitlisted'})
@@ -167,6 +178,11 @@ class UmsApplication(models.Model):
                 'admission_term_id': app.intake_id.term_id.id,
             })
             app.write({'state': 'enrolled', 'student_id': student.id})
+            welcome = self.env.ref(
+                'ums_admission.mail_template_student_welcome',
+                raise_if_not_found=False)
+            if welcome and student.email:
+                welcome.send_mail(student.id, force_send=False)
         return True
 
     # ------------------------------------------------------------------

@@ -55,7 +55,7 @@ class UmsWebsite(http.Controller):
                 program_id = int(post['program_id'])
             except (ValueError, TypeError):
                 program_id = False
-        request.env['ums.lead'].sudo().create({
+        lead = request.env['ums.lead'].sudo().create({
             'name': name,
             'email': email,
             'phone': (post.get('phone') or '').strip(),
@@ -64,4 +64,9 @@ class UmsWebsite(http.Controller):
             'source': 'website',
             'stage': 'new',
         })
+        # Acknowledge the enquiry by email (queued).
+        template = request.env.ref(
+            'ums_admission.mail_template_lead_ack', raise_if_not_found=False)
+        if template:
+            template.sudo().send_mail(lead.id, force_send=False)
         return request.render('ums_website.apply_thanks', {'name': name})
