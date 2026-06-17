@@ -1,96 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Add an "Academics" card to the portal home (always visible, no count
-         gate so it shows for staff/preview as well as students). -->
+    <!-- Portal home cards (self-contained markup so they always render). -->
     <template id="portal_my_home_academics" name="Portal My Home : Academics"
               inherit_id="portal.portal_my_home" priority="40">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-            <t t-call="portal.portal_docs_entry">
-                <t t-set="title">Academics</t>
-                <t t-set="text">Registrations, grades, schedule and holds</t>
-                <t t-set="url" t-value="'/my/academics'"/>
-            </t>
+            <div class="o_portal_doc_entry col-12 col-md-6 col-lg-4 mb-3">
+                <a href="/my/academics" class="d-block h-100 text-decoration-none">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fa fa-graduation-cap fa-2x text-primary me-3"/>
+                            <div>
+                                <h5 class="mb-0 text-body">Student Dashboard</h5>
+                                <small class="text-muted">Grades, attendance, schedule and holds</small>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="o_portal_doc_entry col-12 col-md-6 col-lg-4 mb-3">
+                <a href="/my/teaching" class="d-block h-100 text-decoration-none">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fa fa-chalkboard-teacher fa-2x text-success me-3"/>
+                            <div>
+                                <h5 class="mb-0 text-body">Faculty Dashboard</h5>
+                                <small class="text-muted">Your sections, students and assignments</small>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </xpath>
     </template>
 
-    <template id="portal_my_academics" name="My Academics">
+    <!-- ===================== STUDENT DASHBOARD ===================== -->
+    <template id="portal_my_academics" name="Student Dashboard">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
-            <div class="o_portal_my_doc_table">
+            <div class="ums-dash">
 
                 <t t-if="is_preview">
                     <div class="alert alert-info" role="alert">
                         <i class="fa fa-info-circle me-1"/> Staff preview — showing a
-                        sample student record. A logged-in student sees their own.
+                        sample student record.
                     </div>
                 </t>
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="mb-0">Academic Record / السجل الأكاديمي</h3>
-                    <span class="badge bg-primary" t-esc="student.status"/>
+                <div class="ums-dash-head d-flex justify-content-between align-items-center flex-wrap">
+                    <div>
+                        <h2>Student Dashboard</h2>
+                        <div class="ums-sub">Academic Record / السجل الأكاديمي</div>
+                    </div>
+                    <span class="badge bg-light text-dark fs-6" t-out="student.status"/>
                 </div>
 
-                <div class="row mb-4">
-                    <div class="col-md-4"><strong>Student:</strong> <span t-field="student.name"/></div>
-                    <div class="col-md-4"><strong>University ID:</strong> <span t-field="student.university_id"/></div>
-                    <div class="col-md-4"><strong>Program:</strong> <span t-field="student.program_id"/></div>
+                <!-- Stat cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-blue"><i class="fa fa-star"/></div>
+                            <div><div class="ums-stat-num" t-out="cgpa"/><div class="ums-stat-label">CGPA</div></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-green"><i class="fa fa-book"/></div>
+                            <div><div class="ums-stat-num" t-out="len(registrations)"/><div class="ums-stat-label">Courses</div></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-amber"><i class="fa fa-graduation-cap"/></div>
+                            <div><div class="ums-stat-num" t-out="completed_ch"/><div class="ums-stat-label">Completed CH</div></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-red"><i class="fa fa-ban"/></div>
+                            <div><div class="ums-stat-num" t-out="len(holds)"/><div class="ums-stat-label">Active Holds</div></div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row text-center mb-4">
-                    <div class="col-4">
-                        <div class="border rounded p-3">
-                            <div class="h4 mb-0 text-primary" t-esc="cgpa"/>
-                            <small class="text-muted">CGPA</small>
+                <div class="row g-3 mb-4">
+                    <!-- Profile -->
+                    <div class="col-lg-7">
+                        <div class="ums-panel">
+                            <h5>My Profile</h5>
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="ums-avatar"><span t-out="(student.name or '?')[:1]"/></div>
+                                <div>
+                                    <div class="fw-bold fs-5" t-out="student.name"/>
+                                    <div class="text-muted" t-out="student.program_id.name_en"/>
+                                    <span class="ums-pill" t-out="student.university_id"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 mb-2"><strong>National ID:</strong> <span t-out="student.national_id"/></div>
+                                <div class="col-sm-6 mb-2"><strong>Level:</strong> <span t-out="student.level"/></div>
+                                <div class="col-sm-6 mb-2"><strong>Department:</strong> <span t-out="student.department_id.name_en"/></div>
+                                <div class="col-sm-6 mb-2"><strong>Email:</strong> <span t-out="student.email"/></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="border rounded p-3">
-                            <div class="h4 mb-0 text-primary" t-esc="len(registrations)"/>
-                            <small class="text-muted">Courses</small>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="border rounded p-3">
-                            <div class="h4 mb-0 text-primary" t-esc="len(holds)"/>
-                            <small class="text-muted">Active Holds</small>
+                    <!-- Attendance donut -->
+                    <div class="col-lg-5">
+                        <div class="ums-panel text-center">
+                            <h5>Attendance</h5>
+                            <div class="ums-donut" t-attf-style="--deg:{{ attendance['deg'] }};">
+                                <div class="ums-donut-center">
+                                    <span class="num" t-out="attendance['pct']"/><span class="lbl">% Present</span>
+                                </div>
+                            </div>
+                            <ul class="ums-legend d-inline-block text-start">
+                                <li><span class="dot dot-present"/> Present: <span t-out="attendance['present']"/></li>
+                                <li><span class="dot dot-absent"/> Absent: <span t-out="attendance['absent']"/></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
                 <t t-if="holds">
                     <div class="alert alert-warning" role="alert">
-                        You have <span t-esc="len(holds)"/> active hold(s) that may
-                        block registration or transcripts.
+                        <i class="fa fa-exclamation-triangle me-1"/>
+                        You have <span t-out="len(holds)"/> active hold(s) that may block registration or transcripts.
                     </div>
                 </t>
 
-                <h5>Courses</h5>
-                <table class="table table-sm table-hover">
-                    <thead>
-                        <tr>
-                            <th>Term</th>
-                            <th>Course</th>
-                            <th>Section</th>
-                            <th>CH</th>
-                            <th>Grade</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr t-foreach="registrations" t-as="reg">
-                            <td t-field="reg.term_id"/>
-                            <td t-field="reg.course_id"/>
-                            <td t-field="reg.section_id"/>
-                            <td t-field="reg.credit_hours"/>
-                            <td t-field="reg.grade_letter"/>
-                            <td><span class="badge bg-secondary" t-esc="reg.state"/></td>
-                        </tr>
-                        <tr t-if="not registrations">
-                            <td colspan="6" class="text-center text-muted">No registrations yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- Courses -->
+                <div class="ums-panel">
+                    <h5>My Courses</h5>
+                    <table class="table ums-table align-middle">
+                        <thead>
+                            <tr><th>Term</th><th>Course</th><th>Section</th><th>CH</th><th>Grade</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="registrations" t-as="reg">
+                                <td t-out="reg.term_id.name"/>
+                                <td t-out="reg.course_id.name_en"/>
+                                <td t-out="reg.section_id.name"/>
+                                <td t-out="reg.credit_hours"/>
+                                <td><strong t-out="reg.grade_letter or '—'"/></td>
+                                <td><span class="badge bg-secondary" t-out="reg.state"/></td>
+                            </tr>
+                            <tr t-if="not registrations">
+                                <td colspan="6" class="text-center text-muted">No registrations yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== FACULTY DASHBOARD ===================== -->
+    <template id="portal_my_teaching" name="Faculty Dashboard">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <div class="ums-dash">
+
+                <t t-if="is_preview">
+                    <div class="alert alert-info" role="alert">
+                        <i class="fa fa-info-circle me-1"/> Staff preview — showing sample sections.
+                    </div>
+                </t>
+
+                <div class="ums-dash-head">
+                    <h2>Faculty Dashboard</h2>
+                    <div class="ums-sub">Teaching overview / لوحة أعضاء هيئة التدريس</div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-blue"><i class="fa fa-chalkboard"/></div>
+                            <div><div class="ums-stat-num" t-out="len(sections)"/><div class="ums-stat-label">Sections</div></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-green"><i class="fa fa-users"/></div>
+                            <div><div class="ums-stat-num" t-out="total_students"/><div class="ums-stat-label">Students</div></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-amber"><i class="fa fa-tasks"/></div>
+                            <div><div class="ums-stat-num" t-out="assignment_count"/><div class="ums-stat-label">Assignments</div></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="ums-stat-card">
+                            <div class="ums-stat-icon ums-ic-red"><i class="fa fa-check"/></div>
+                            <div><div class="ums-stat-num" t-out="attendance['pct']"/><div class="ums-stat-label">% Attendance</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-7">
+                        <div class="ums-panel">
+                            <h5>Instructor</h5>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="ums-avatar"><span t-out="(user_name or '?')[:1]"/></div>
+                                <div>
+                                    <div class="fw-bold fs-5" t-out="user_name"/>
+                                    <div class="text-muted">Faculty Member</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="ums-panel text-center">
+                            <h5>Class Attendance</h5>
+                            <div class="ums-donut" t-attf-style="--deg:{{ attendance['deg'] }};">
+                                <div class="ums-donut-center">
+                                    <span class="num" t-out="attendance['pct']"/><span class="lbl">% Present</span>
+                                </div>
+                            </div>
+                            <ul class="ums-legend d-inline-block text-start">
+                                <li><span class="dot dot-present"/> Present: <span t-out="attendance['present']"/></li>
+                                <li><span class="dot dot-absent"/> Absent: <span t-out="attendance['absent']"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ums-panel">
+                    <h5>My Sections</h5>
+                    <table class="table ums-table align-middle">
+                        <thead>
+                            <tr><th>Section</th><th>Course</th><th>Term</th><th>Room</th><th>Enrolled</th><th>Capacity</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="sections" t-as="sec">
+                                <td t-out="sec.name"/>
+                                <td t-out="sec.course_id.name_en"/>
+                                <td t-out="sec.term_id.name"/>
+                                <td t-out="sec.room_id.name"/>
+                                <td t-out="sec.enrolled_count"/>
+                                <td t-out="sec.capacity"/>
+                            </tr>
+                            <tr t-if="not sections">
+                                <td colspan="6" class="text-center text-muted">No sections assigned.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </t>
     </template>

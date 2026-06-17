@@ -1,0 +1,90 @@
+/* UMS portal dashboards — student & faculty */
+.ums-dash { --ums-blue:#1d4ed8; --ums-navy:#1e3a8a; --ums-green:#16a34a; --ums-red:#ef4444; }
+
+.ums-dash-head {
+    background: linear-gradient(135deg, var(--ums-navy) 0%, #14235c 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+}
+.ums-dash-head h2 { margin: 0; font-weight: 800; }
+.ums-dash-head .ums-sub { opacity: .85; }
+
+/* Stat cards */
+.ums-stat-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(30,58,138,.08);
+    padding: 1.25rem 1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.ums-stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(30,58,138,.16); }
+.ums-stat-icon {
+    width: 56px; height: 56px; min-width: 56px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: #fff;
+}
+.ums-ic-blue { background: var(--ums-blue); }
+.ums-ic-green { background: var(--ums-green); }
+.ums-ic-amber { background: #d97706; }
+.ums-ic-red { background: var(--ums-red); }
+.ums-stat-num { font-size: 1.9rem; font-weight: 800; line-height: 1; color: #111827; }
+.ums-stat-label { color: #6b7280; font-weight: 600; font-size: .85rem; }
+
+/* Panels */
+.ums-panel {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(30,58,138,.08);
+    padding: 1.5rem;
+    height: 100%;
+}
+.ums-panel h5 { font-weight: 700; margin-bottom: 1rem; }
+
+/* Avatar */
+.ums-avatar {
+    width: 84px; height: 84px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--ums-blue), var(--ums-navy));
+    color: #fff; font-size: 2.2rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* CSS donut (no JS) */
+.ums-donut {
+    width: 170px; height: 170px; border-radius: 50%;
+    position: relative; margin: 0 auto;
+    background: conic-gradient(var(--ums-blue) 0 calc(var(--deg) * 1deg),
+                               var(--ums-red) calc(var(--deg) * 1deg) 360deg);
+}
+.ums-donut::after {
+    content: ""; position: absolute; inset: 22px;
+    background: #fff; border-radius: 50%;
+}
+.ums-donut-center {
+    position: absolute; inset: 0; z-index: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+}
+.ums-donut-center .num { font-size: 1.8rem; font-weight: 800; color: #111827; }
+.ums-donut-center .lbl { font-size: .75rem; color: #6b7280; }
+.ums-legend { list-style: none; padding: 0; margin: 1rem 0 0; }
+.ums-legend li { display: flex; align-items: center; gap: .5rem; font-size: .9rem; }
+.ums-legend .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.ums-legend .dot-present { background: var(--ums-blue); }
+.ums-legend .dot-absent { background: var(--ums-red); }
+
+/* Tag pills */
+.ums-pill {
+    background: #e0e7ff; color: #1e3a8a;
+    border-radius: 999px; padding: .15rem .65rem;
+    font-size: .8rem; font-weight: 600; display: inline-block; margin: .15rem;
+}
+
+.ums-table th { color: #6b7280; font-weight: 600; font-size: .8rem; text-transform: uppercase; }

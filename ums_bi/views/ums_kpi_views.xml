@@ -19,16 +19,52 @@
         <field name="name">ums.kpi.graph</field>
         <field name="model">ums.kpi</field>
         <field name="arch" type="xml">
-            <graph string="KPIs" type="bar">
+            <graph string="KPI Dashboard" type="bar">
                 <field name="code"/>
                 <field name="value" type="measure"/>
             </graph>
         </field>
     </record>
 
+    <record id="view_ums_kpi_pivot" model="ir.ui.view">
+        <field name="name">ums.kpi.pivot</field>
+        <field name="model">ums.kpi</field>
+        <field name="arch" type="xml">
+            <pivot string="KPI Dashboard">
+                <field name="code" type="row"/>
+                <field name="program_id" type="col"/>
+                <field name="value" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_ums_kpi_kanban" model="ir.ui.view">
+        <field name="name">ums.kpi.kanban</field>
+        <field name="model">ums.kpi</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="value"/>
+                <field name="unit"/>
+                <field name="program_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click p-3 text-center">
+                            <div style="font-size:2rem;font-weight:700;color:#0b6b5e;">
+                                <field name="value"/>
+                            </div>
+                            <div class="text-muted"><field name="name"/></div>
+                            <div class="small text-muted"><field name="program_id"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="action_ums_kpi" model="ir.actions.act_window">
-        <field name="name">KPIs</field>
+        <field name="name">University Dashboard</field>
         <field name="res_model">ums.kpi</field>
-        <field name="view_mode">graph,list</field>
+        <field name="view_mode">graph,pivot,kanban,list</field>
     </record>
 </odoo>
