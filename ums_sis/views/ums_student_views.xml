@@ -137,7 +137,7 @@
                 <field name="program_id"/>
                 <filter name="active_students" string="Active" domain="[('status', '=', 'active')]"/>
                 <filter name="with_holds" string="With Holds" domain="[('active_hold_count', '>', 0)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_program" string="Program" context="{'group_by': 'program_id'}"/>
                     <filter name="group_status" string="Status" context="{'group_by': 'status'}"/>
                     <filter name="group_level" string="Level" context="{'group_by': 'level'}"/>

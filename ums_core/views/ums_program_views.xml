@@ -79,7 +79,7 @@
                 <filter name="bachelor" string="Bachelor" domain="[('degree_type', '=', 'bachelor')]"/>
                 <filter name="postgrad" string="Postgraduate"
                         domain="[('degree_type', 'in', ['master', 'phd'])]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_degree" string="Degree Type"
                             context="{'group_by': 'degree_type'}"/>
                     <filter name="group_college" string="College"

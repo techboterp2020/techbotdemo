@@ -76,7 +76,7 @@
                 <field name="program_id"/>
                 <filter name="active_plans" string="Active" domain="[('state', '=', 'active')]"/>
                 <filter name="draft_plans" string="Draft" domain="[('state', '=', 'draft')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_program" string="Program"
                             context="{'group_by': 'program_id'}"/>
                     <filter name="group_state" string="Status"

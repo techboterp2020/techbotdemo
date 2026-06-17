@@ -73,7 +73,7 @@
                 <field name="term_id"/>
                 <field name="instructor_id"/>
                 <filter name="open" string="Open" domain="[('state', '=', 'open')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_term" string="Term" context="{'group_by': 'term_id'}"/>
                     <filter name="group_course" string="Course" context="{'group_by': 'course_id'}"/>
                     <filter name="group_instructor" string="Instructor" context="{'group_by': 'instructor_id'}"/>

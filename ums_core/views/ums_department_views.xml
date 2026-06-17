@@ -62,7 +62,7 @@
                 <field name="name_ar"/>
                 <field name="code"/>
                 <field name="college_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_college" string="College"
                             context="{'group_by': 'college_id'}"/>
                     <filter name="group_institution" string="Institution"

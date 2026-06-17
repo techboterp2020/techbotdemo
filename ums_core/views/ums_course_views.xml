@@ -88,7 +88,7 @@
                 <field name="name_en"/>
                 <field name="name_ar"/>
                 <field name="department_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_dept" string="Department"
                             context="{'group_by': 'department_id'}"/>
                     <filter name="group_type" string="Type"

@@ -117,7 +117,7 @@
                 <field name="national_id"/>
                 <field name="program_id"/>
                 <field name="intake_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_intake" string="Intake" context="{'group_by': 'intake_id'}"/>
                     <filter name="group_program" string="Program" context="{'group_by': 'program_id'}"/>
                     <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>

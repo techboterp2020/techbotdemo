@@ -69,7 +69,7 @@
                 <field name="student_id"/>
                 <field name="course_id"/>
                 <field name="term_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_term" string="Term" context="{'group_by': 'term_id'}"/>
                     <filter name="group_student" string="Student" context="{'group_by': 'student_id'}"/>
                     <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
