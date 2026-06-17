@@ -268,7 +268,7 @@ def _people(env, ctx):
             vals = {'name': 'Dr. %s' % _name(i), 'login': 'ums_demo_instr_%s' % (i + 1),
                     'email': 'instr%s@demo.ums' % (i + 1)}
             if group_cmds:
-                vals['groups_id'] = group_cmds
+                vals['group_ids'] = group_cmds   # Odoo 19: groups_id -> group_ids
             ctx.instructors.append(Users.create(vals))
     Emp = env['hr.employee']
     ranks = ['lecturer', 'assistant', 'associate', 'professor']
