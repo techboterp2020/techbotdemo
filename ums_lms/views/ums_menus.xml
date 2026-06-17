@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_teaching" name="Teaching"
+              parent="ums_core.menu_ums_root" sequence="35"
+              groups="ums_lms.ums_group_faculty"/>
+
+    <menuitem id="menu_ums_assignment" name="Assignments"
+              parent="menu_ums_teaching" action="action_ums_assignment" sequence="10"/>
+    <menuitem id="menu_ums_attendance" name="Attendance"
+              parent="menu_ums_teaching" action="action_ums_attendance_session" sequence="20"/>
+    <menuitem id="menu_ums_rubric" name="Rubrics"
+              parent="menu_ums_teaching" action="action_ums_rubric" sequence="30"/>
+
+    <menuitem id="menu_ums_lms_link" name="LMS Integration"
+              parent="ums_core.menu_ums_config" action="action_ums_lms_link" sequence="30"/>
+</odoo>

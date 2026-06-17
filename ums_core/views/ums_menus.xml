@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Root application menu shared across UMS modules. -->
+    <menuitem id="menu_ums_root" name="University"
+              web_icon="ums_core,static/description/icon.png"
+              sequence="15"
+              groups="ums_group_academic_user"/>
+
+    <!-- Academic Structure -->
+    <menuitem id="menu_ums_structure" name="Academic Structure"
+              parent="menu_ums_root" sequence="10"/>
+
+    <menuitem id="menu_ums_institution" name="Institutions"
+              parent="menu_ums_structure" action="action_ums_institution"
+              sequence="10" groups="ums_group_registrar"/>
+    <menuitem id="menu_ums_college" name="Colleges"
+              parent="menu_ums_structure" action="action_ums_college" sequence="20"/>
+    <menuitem id="menu_ums_department" name="Departments"
+              parent="menu_ums_structure" action="action_ums_department" sequence="30"/>
+    <menuitem id="menu_ums_program" name="Programs"
+              parent="menu_ums_structure" action="action_ums_program" sequence="40"/>
+
+    <!-- Catalog -->
+    <menuitem id="menu_ums_catalog" name="Catalog"
+              parent="menu_ums_root" sequence="20"/>
+
+    <menuitem id="menu_ums_course" name="Courses"
+              parent="menu_ums_catalog" action="action_ums_course" sequence="10"/>
+    <menuitem id="menu_ums_study_plan" name="Study Plans"
+              parent="menu_ums_catalog" action="action_ums_study_plan" sequence="20"/>
+    <menuitem id="menu_ums_learning_outcome" name="Learning Outcomes"
+              parent="menu_ums_catalog" action="action_ums_learning_outcome" sequence="30"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_ums_config" name="Configuration"
+              parent="menu_ums_root" sequence="90"
+              groups="ums_group_admin"/>
+
+    <menuitem id="menu_ums_grade_scheme" name="Grade Schemes"
+              parent="menu_ums_config" action="action_ums_grade_scheme" sequence="10"/>
+
+</odoo>

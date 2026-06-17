@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_faculty_load" name="Teaching Load"
+              parent="ums_core.menu_ums_root" sequence="45"
+              action="action_ums_teaching_load"
+              groups="ums_core.ums_group_dept_head"/>
+</odoo>

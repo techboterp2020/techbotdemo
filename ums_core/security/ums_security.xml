@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- =====================================================================
+         UMS application category and security-group skeleton.
+         Downstream UMS modules extend these groups (Section 4 / NFR-SEC-01).
+         ===================================================================== -->
+
+    <record id="module_category_ums" model="ir.module.category">
+        <field name="name">University Management</field>
+        <field name="description">University Management System roles</field>
+        <field name="sequence">90</field>
+    </record>
+
+    <!-- Catalog/structure maintainers: department heads, deans, registrars. -->
+    <record id="ums_group_academic_user" model="res.groups">
+        <field name="name">Academic: User</field>
+        <field name="category_id" ref="module_category_ums"/>
+        <field name="comment">Read access to the academic catalog and structure.</field>
+    </record>
+
+    <record id="ums_group_dept_head" model="res.groups">
+        <field name="name">Academic: Department Head</field>
+        <field name="category_id" ref="module_category_ums"/>
+        <field name="implied_ids" eval="[(4, ref('ums_group_academic_user'))]"/>
+        <field name="comment">Maintain courses, programs and study plans for the department.</field>
+    </record>
+
+    <record id="ums_group_registrar" model="res.groups">
+        <field name="name">Academic: Registrar</field>
+        <field name="category_id" ref="module_category_ums"/>
+        <field name="implied_ids" eval="[(4, ref('ums_group_dept_head'))]"/>
+        <field name="comment">Institution-wide academic configuration and structure.</field>
+    </record>
+
+    <record id="ums_group_admin" model="res.groups">
+        <field name="name">Academic: System Administrator</field>
+        <field name="category_id" ref="module_category_ums"/>
+        <field name="implied_ids" eval="[(4, ref('ums_group_registrar'))]"/>
+        <field name="comment">Full configuration of the UMS, including grading schemes.</field>
+    </record>
+
+    <!-- Grant the base admin user the top UMS role on install. -->
+    <record id="base.user_admin" model="res.users">
+        <field name="groups_id" eval="[(4, ref('ums_group_admin'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ums_learning_outcome_list" model="ir.ui.view">
+        <field name="name">ums.learning.outcome.list</field>
+        <field name="model">ums.learning.outcome</field>
+        <field name="arch" type="xml">
+            <list string="Learning Outcomes">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="outcome_type"/>
+                <field name="course_id" optional="show"/>
+                <field name="program_id" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_learning_outcome_form" model="ir.ui.view">
+        <field name="name">ums.learning.outcome.form</field>
+        <field name="model">ums.learning.outcome</field>
+        <field name="arch" type="xml">
+            <form string="Learning Outcome">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="outcome_type"/>
+                            <field name="course_id"
+                                   invisible="outcome_type != 'clo'"
+                                   required="outcome_type == 'clo'"/>
+                            <field name="program_id"
+                                   invisible="outcome_type != 'plo'"
+                                   required="outcome_type == 'plo'"/>
+                        </group>
+                    </group>
+                    <field name="name" placeholder="Outcome statement..."/>
+                    <separator string="Mapped Program Outcomes"
+                               invisible="outcome_type != 'clo'"/>
+                    <field name="mapped_plo_ids" widget="many2many_tags"
+                           invisible="outcome_type != 'clo'"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_learning_outcome" model="ir.actions.act_window">
+        <field name="name">Learning Outcomes</field>
+        <field name="res_model">ums.learning.outcome</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

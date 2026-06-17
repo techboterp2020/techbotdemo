@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_bi" name="Analytics"
+              parent="ums_core.menu_ums_root" sequence="70"
+              action="action_ums_kpi"
+              groups="ums_core.ums_group_academic_user"/>
+</odoo>

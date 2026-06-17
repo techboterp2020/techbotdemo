@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_hold_list" model="ir.ui.view">
+        <field name="name">ums.hold.list</field>
+        <field name="model">ums.hold</field>
+        <field name="arch" type="xml">
+            <list string="Holds">
+                <field name="student_id"/>
+                <field name="hold_type"/>
+                <field name="reason"/>
+                <field name="blocks_registration"/>
+                <field name="blocks_transcript"/>
+                <field name="placed_date"/>
+                <field name="active"/>
+                <button name="action_clear" type="object" string="Clear"
+                        icon="fa-check" invisible="not active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ums_hold" model="ir.actions.act_window">
+        <field name="name">Holds</field>
+        <field name="res_model">ums.hold</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

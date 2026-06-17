@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_finance" name="Finance"
+              parent="ums_core.menu_ums_root" sequence="40"
+              groups="account.group_account_invoice"/>
+
+    <menuitem id="menu_ums_fee_structure" name="Fee Structures"
+              parent="menu_ums_finance" action="action_ums_fee_structure" sequence="10"/>
+</odoo>

@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_student_student,ums.student.student,model_ums_student,ums_group_student,1,0,0,0
+access_ums_student_advisor,ums.student.advisor,model_ums_student,ums_group_advisor,1,1,0,0
+access_ums_student_registrar,ums.student.registrar,model_ums_student,ums_core.ums_group_registrar,1,1,1,1
+access_ums_registration_student,ums.registration.student,model_ums_registration,ums_group_student,1,1,1,0
+access_ums_registration_advisor,ums.registration.advisor,model_ums_registration,ums_group_advisor,1,1,1,0
+access_ums_registration_registrar,ums.registration.registrar,model_ums_registration,ums_core.ums_group_registrar,1,1,1,1
+access_ums_hold_student,ums.hold.student,model_ums_hold,ums_group_student,1,0,0,0
+access_ums_hold_advisor,ums.hold.advisor,model_ums_hold,ums_group_advisor,1,1,1,0
+access_ums_hold_registrar,ums.hold.registrar,model_ums_hold,ums_core.ums_group_registrar,1,1,1,1
+access_ums_advising_note_student,ums.advising.note.student,model_ums_advising_note,ums_group_student,1,0,0,0
+access_ums_advising_note_advisor,ums.advising.note.advisor,model_ums_advising_note,ums_group_advisor,1,1,1,1
+access_ums_standing_student,ums.academic.standing.student,model_ums_academic_standing,ums_group_student,1,0,0,0
+access_ums_standing_advisor,ums.academic.standing.advisor,model_ums_academic_standing,ums_group_advisor,1,0,0,0
+access_ums_standing_registrar,ums.academic.standing.registrar,model_ums_academic_standing,ums_core.ums_group_registrar,1,1,1,1
+access_ums_status_history_user,ums.status.history.user,model_ums_student_status_history,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_status_history_registrar,ums.status.history.registrar,model_ums_student_status_history,ums_core.ums_group_registrar,1,1,1,0

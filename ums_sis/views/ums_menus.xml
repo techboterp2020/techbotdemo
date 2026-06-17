@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_sis" name="Students"
+              parent="ums_core.menu_ums_root" sequence="5"
+              groups="ums_core.ums_group_academic_user"/>
+
+    <menuitem id="menu_ums_student" name="Students"
+              parent="menu_ums_sis" action="action_ums_student" sequence="10"/>
+    <menuitem id="menu_ums_registration" name="Registrations"
+              parent="menu_ums_sis" action="action_ums_registration" sequence="20"/>
+    <menuitem id="menu_ums_hold" name="Holds"
+              parent="menu_ums_sis" action="action_ums_hold" sequence="30"/>
+    <menuitem id="menu_ums_advising_note" name="Advising Notes"
+              parent="menu_ums_sis" action="action_ums_advising_note" sequence="40"/>
+    <menuitem id="menu_ums_standing" name="Academic Standing"
+              parent="menu_ums_sis" action="action_ums_standing" sequence="50"/>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_admission" name="Admissions"
+              parent="ums_core.menu_ums_root" sequence="3"
+              groups="ums_group_admissions"/>
+
+    <menuitem id="menu_ums_lead" name="Leads"
+              parent="menu_ums_admission" action="action_ums_lead" sequence="10"/>
+    <menuitem id="menu_ums_application" name="Applications"
+              parent="menu_ums_admission" action="action_ums_application" sequence="20"/>
+    <menuitem id="menu_ums_intake" name="Intakes"
+              parent="menu_ums_admission" action="action_ums_intake" sequence="30"/>
+</odoo>

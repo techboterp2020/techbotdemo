@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_employee_form_ums" model="ir.ui.view">
+        <field name="name">hr.employee.form.ums</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Faculty" name="ums_faculty" invisible="not is_faculty">
+                    <group>
+                        <group>
+                            <field name="academic_rank"/>
+                            <field name="specialisation"/>
+                            <field name="ums_department_id"/>
+                        </group>
+                        <group>
+                            <field name="max_teaching_load"/>
+                        </group>
+                    </group>
+                    <field name="qualifications" placeholder="Degrees, certifications..."/>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='job_title']" position="after">
+                <field name="is_faculty"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

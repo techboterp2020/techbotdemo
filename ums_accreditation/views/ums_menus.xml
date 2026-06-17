@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_accreditation" name="Accreditation &amp; QA"
+              parent="ums_core.menu_ums_root" sequence="72"
+              action="action_ums_accreditation"
+              groups="ums_core.ums_group_registrar"/>
+</odoo>

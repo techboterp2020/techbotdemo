@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_section_list" model="ir.ui.view">
+        <field name="name">ums.section.list</field>
+        <field name="model">ums.section</field>
+        <field name="arch" type="xml">
+            <list string="Sections">
+                <field name="name"/>
+                <field name="course_id"/>
+                <field name="term_id"/>
+                <field name="instructor_id"/>
+                <field name="room_id"/>
+                <field name="capacity"/>
+                <field name="enrolled_count"/>
+                <field name="seats_available"/>
+                <field name="gender"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'open'"
+                       decoration-muted="state in ('closed','cancelled')"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_section_form" model="ir.ui.view">
+        <field name="name">ums.section.form</field>
+        <field name="model">ums.section</field>
+        <field name="arch" type="xml">
+            <form string="Section">
+                <header>
+                    <button name="action_open" type="object" string="Open"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_close" type="object" string="Close"
+                            invisible="state != 'open'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('closed','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,open,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="course_id"/>
+                            <field name="code"/>
+                            <field name="term_id"/>
+                            <field name="credit_hours"/>
+                        </group>
+                        <group>
+                            <field name="instructor_id"/>
+                            <field name="room_id"/>
+                            <field name="capacity"/>
+                            <field name="enrolled_count"/>
+                            <field name="seats_available"/>
+                            <field name="gender"/>
+                        </group>
+                    </group>
+                    <separator string="Timetable"/>
+                    <field name="timeslot_ids" widget="many2many_tags"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ums_section_search" model="ir.ui.view">
+        <field name="name">ums.section.search</field>
+        <field name="model">ums.section</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="course_id"/>
+                <field name="term_id"/>
+                <field name="instructor_id"/>
+                <filter name="open" string="Open" domain="[('state', '=', 'open')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_term" string="Term" context="{'group_by': 'term_id'}"/>
+                    <filter name="group_course" string="Course" context="{'group_by': 'course_id'}"/>
+                    <filter name="group_instructor" string="Instructor" context="{'group_by': 'instructor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ums_section" model="ir.actions.act_window">
+        <field name="name">Sections</field>
+        <field name="res_model">ums.section</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

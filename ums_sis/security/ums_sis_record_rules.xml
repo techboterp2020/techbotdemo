@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Students see only their own student record (NFR-SEC-01). -->
+    <record id="rule_student_own_record" model="ir.rule">
+        <field name="name">Student: own record</field>
+        <field name="model_id" ref="model_ums_student"/>
+        <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('ums_group_student'))]"/>
+    </record>
+
+    <record id="rule_student_own_registrations" model="ir.rule">
+        <field name="name">Student: own registrations</field>
+        <field name="model_id" ref="model_ums_registration"/>
+        <field name="domain_force">[('student_id.partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('ums_group_student'))]"/>
+    </record>
+
+    <record id="rule_student_own_holds" model="ir.rule">
+        <field name="name">Student: own holds</field>
+        <field name="model_id" ref="model_ums_hold"/>
+        <field name="domain_force">[('student_id.partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('ums_group_student'))]"/>
+    </record>
+
+    <!-- Advisors see their advisees (record-rule scoping, NFR-SEC-01). -->
+    <record id="rule_advisor_advisees" model="ir.rule">
+        <field name="name">Advisor: advisees</field>
+        <field name="model_id" ref="model_ums_student"/>
+        <field name="domain_force">[('advisor_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('ums_group_advisor'))]"/>
+    </record>
+
+    <!-- Registrar and above: unrestricted (global rule kept permissive). -->
+    <record id="rule_student_staff_all" model="ir.rule">
+        <field name="name">Staff: all students</field>
+        <field name="model_id" ref="model_ums_student"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('ums_core.ums_group_registrar'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_calendar" name="Calendar &amp; Scheduling"
+              parent="ums_core.menu_ums_root" sequence="30"/>
+
+    <menuitem id="menu_ums_academic_year" name="Academic Years"
+              parent="menu_ums_calendar" action="action_ums_academic_year" sequence="10"/>
+    <menuitem id="menu_ums_term" name="Terms"
+              parent="menu_ums_calendar" action="action_ums_term" sequence="20"/>
+    <menuitem id="menu_ums_key_date" name="Key Dates"
+              parent="menu_ums_calendar" action="action_ums_key_date" sequence="30"/>
+    <menuitem id="menu_ums_section" name="Sections"
+              parent="menu_ums_calendar" action="action_ums_section" sequence="40"/>
+    <menuitem id="menu_ums_exam" name="Exam Schedule"
+              parent="menu_ums_calendar" action="action_ums_exam" sequence="50"/>
+
+    <menuitem id="menu_ums_calendar_config" name="Scheduling Config"
+              parent="ums_core.menu_ums_config" sequence="20"/>
+    <menuitem id="menu_ums_room" name="Rooms"
+              parent="menu_ums_calendar_config" action="action_ums_room" sequence="10"/>
+    <menuitem id="menu_ums_timeslot" name="Time Slots"
+              parent="menu_ums_calendar_config" action="action_ums_timeslot" sequence="20"/>
+</odoo>

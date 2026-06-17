@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_transcript" model="ir.actions.report">
+        <field name="name">Official Transcript</field>
+        <field name="model">ums.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ums_assessment.report_transcript</field>
+        <field name="report_file">ums_assessment.report_transcript</field>
+        <field name="binding_model_id" ref="ums_sis.model_ums_student"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_transcript">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="student">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <t t-set="today" t-value="datetime.date.today()"/>
+                        <h2 class="text-center">Official Transcript / السجل الأكاديمي</h2>
+                        <table class="table table-sm mt-3">
+                            <tr>
+                                <td><strong>Student / الطالب:</strong></td>
+                                <td t-esc="student.name"/>
+                                <td><strong>University ID:</strong></td>
+                                <td t-esc="student.university_id"/>
+                            </tr>
+                            <tr>
+                                <td><strong>Program / البرنامج:</strong></td>
+                                <td t-esc="student.program_id.display_name"/>
+                                <td><strong>National ID:</strong></td>
+                                <td t-esc="student.national_id"/>
+                            </tr>
+                        </table>
+
+                        <t t-foreach="student.standing_ids.mapped('term_id')" t-as="term">
+                            <h4 t-esc="term.display_name"/>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Course / المقرر</th>
+                                        <th>CH</th>
+                                        <th>Grade</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="student.registration_ids.filtered(lambda r: r.term_id == term and r.state in ('completed','failed'))" t-as="reg">
+                                        <td t-esc="reg.course_id.display_name"/>
+                                        <td t-esc="reg.credit_hours"/>
+                                        <td t-esc="reg.grade_letter"/>
+                                        <td t-esc="reg.grade_point"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <table class="table table-sm mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Term / الفصل</th>
+                                    <th>Term GPA</th>
+                                    <th>CGPA</th>
+                                    <th>Classification / التقدير</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="student.standing_ids" t-as="st">
+                                    <td t-esc="st.term_id.display_name"/>
+                                    <td t-esc="st.cgpa"/>
+                                    <td t-esc="st.cgpa"/>
+                                    <td t-esc="st.standing"/>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <p>Issued on (Gregorian / Hijri):</p>
+                                <p t-esc="student.dual_date(today)"/>
+                            </div>
+                            <div class="col-6 text-end">
+                                <img t-att-src="'/report/barcode/QR/UMS-%s' % student.university_id"
+                                     style="width:100px;height:100px;"
+                                     alt="Verification QR"/>
+                                <p class="small">Scan to verify</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

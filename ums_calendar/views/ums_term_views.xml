@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_term_list" model="ir.ui.view">
+        <field name="name">ums.term.list</field>
+        <field name="model">ums.term</field>
+        <field name="arch" type="xml">
+            <list string="Terms">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="academic_year_id"/>
+                <field name="term_type"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="hijri_start"/>
+                <field name="state" widget="badge"/>
+                <field name="is_current"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_term_form" model="ir.ui.view">
+        <field name="name">ums.term.form</field>
+        <field name="model">ums.term</field>
+        <field name="arch" type="xml">
+            <form string="Term">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="planning,registration,in_progress,grading,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Fall 2026"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="academic_year_id"/>
+                            <field name="term_type"/>
+                            <field name="is_current"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="hijri_start"/>
+                            <field name="hijri_end"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Key Dates" name="key_dates">
+                            <field name="key_date_ids">
+                                <list editable="bottom">
+                                    <field name="date_type"/>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="hijri_display"/>
+                                    <field name="show_on_portal"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_term" model="ir.actions.act_window">
+        <field name="name">Terms</field>
+        <field name="res_model">ums.term</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_pathway_user,ums.pathway.user,model_ums_pathway,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_pathway_head,ums.pathway.head,model_ums_pathway,ums_core.ums_group_dept_head,1,1,1,1
+access_ums_pathway_student,ums.pathway.student,model_ums_pathway,ums_sis.ums_group_student,1,0,0,0
+access_ums_pathway_step_user,ums.pathway.step.user,model_ums_pathway_step,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_pathway_step_head,ums.pathway.step.head,model_ums_pathway_step,ums_core.ums_group_dept_head,1,1,1,1
+access_ums_pathway_step_student,ums.pathway.step.student,model_ums_pathway_step,ums_sis.ums_group_student,1,0,0,0

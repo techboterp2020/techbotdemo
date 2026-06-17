@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_consent_dpo,ums.consent.dpo,model_ums_consent,ums_group_dpo,1,1,1,1
+access_ums_consent_user,ums.consent.user,model_ums_consent,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_data_request_dpo,ums.data.request.dpo,model_ums_data_request,ums_group_dpo,1,1,1,1
+access_ums_data_request_user,ums.data.request.user,model_ums_data_request,ums_core.ums_group_academic_user,1,0,0,0

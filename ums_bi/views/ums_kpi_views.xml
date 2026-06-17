@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_kpi_list" model="ir.ui.view">
+        <field name="name">ums.kpi.list</field>
+        <field name="model">ums.kpi</field>
+        <field name="arch" type="xml">
+            <list string="KPIs">
+                <field name="snapshot_date"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="value"/>
+                <field name="unit"/>
+                <field name="program_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_kpi_graph" model="ir.ui.view">
+        <field name="name">ums.kpi.graph</field>
+        <field name="model">ums.kpi</field>
+        <field name="arch" type="xml">
+            <graph string="KPIs" type="bar">
+                <field name="code"/>
+                <field name="value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_ums_kpi" model="ir.actions.act_window">
+        <field name="name">KPIs</field>
+        <field name="res_model">ums.kpi</field>
+        <field name="view_mode">graph,list</field>
+    </record>
+</odoo>

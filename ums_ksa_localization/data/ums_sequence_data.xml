@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_ums_data_request" model="ir.sequence">
+        <field name="name">PDPL Data Subject Request</field>
+        <field name="code">ums.data.request</field>
+        <field name="prefix">DSR/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="cron_expire_consents" model="ir.cron">
+        <field name="name">UMS: Expire PDPL consents</field>
+        <field name="model_id" ref="model_ums_consent"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_expire_consents()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

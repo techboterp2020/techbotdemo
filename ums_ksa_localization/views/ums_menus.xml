@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- PDPL / Data Protection menus under the shared University app root. -->
+    <menuitem id="menu_ums_pdpl" name="Data Protection (PDPL)"
+              parent="ums_core.menu_ums_root" sequence="80"
+              groups="ums_group_dpo"/>
+
+    <menuitem id="menu_ums_data_request" name="Data Subject Requests"
+              parent="menu_ums_pdpl" action="action_ums_data_request" sequence="10"/>
+    <menuitem id="menu_ums_consent" name="Consent Records"
+              parent="menu_ums_pdpl" action="action_ums_consent" sequence="20"/>
+
+</odoo>

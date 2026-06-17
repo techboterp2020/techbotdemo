@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_iam" name="Security &amp; Access"
+              parent="ums_core.menu_ums_root" sequence="85"
+              groups="ums_core.ums_group_admin"/>
+
+    <menuitem id="menu_ums_audit_log" name="Audit Log"
+              parent="menu_ums_iam" action="action_ums_audit_log" sequence="10"/>
+</odoo>

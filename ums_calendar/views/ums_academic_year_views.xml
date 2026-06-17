@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_academic_year_list" model="ir.ui.view">
+        <field name="name">ums.academic.year.list</field>
+        <field name="model">ums.academic.year</field>
+        <field name="arch" type="xml">
+            <list string="Academic Years">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="hijri_start"/>
+                <field name="is_current"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_academic_year_form" model="ir.ui.view">
+        <field name="name">ums.academic.year.form</field>
+        <field name="model">ums.academic.year</field>
+        <field name="arch" type="xml">
+            <form string="Academic Year">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="2026/2027"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="is_current"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="hijri_start"/>
+                            <field name="hijri_end"/>
+                        </group>
+                    </group>
+                    <field name="term_ids">
+                        <list>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="term_type"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_academic_year" model="ir.actions.act_window">
+        <field name="name">Academic Years</field>
+        <field name="res_model">ums.academic.year</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

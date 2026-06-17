@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_assignment_list" model="ir.ui.view">
+        <field name="name">ums.assignment.list</field>
+        <field name="model">ums.assignment</field>
+        <field name="arch" type="xml">
+            <list string="Assignments">
+                <field name="name"/>
+                <field name="section_id"/>
+                <field name="course_id"/>
+                <field name="due_date"/>
+                <field name="max_score"/>
+                <field name="weight"/>
+                <field name="submission_count"/>
+                <field name="graded_count"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_assignment_form" model="ir.ui.view">
+        <field name="name">ums.assignment.form</field>
+        <field name="model">ums.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Assignment">
+                <header>
+                    <button name="action_publish" type="object" string="Publish"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_start_grading" type="object" string="Start Grading"
+                            invisible="state != 'published'"/>
+                    <button name="action_approve" type="object" string="Approve"
+                            class="oe_highlight" invisible="state != 'grading'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="section_id"/>
+                            <field name="course_id"/>
+                            <field name="instructor_id"/>
+                            <field name="rubric_id"/>
+                        </group>
+                        <group>
+                            <field name="assigned_date"/>
+                            <field name="due_date"/>
+                            <field name="max_score"/>
+                            <field name="weight"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <notebook>
+                        <page string="Submissions" name="submissions">
+                            <field name="submission_ids">
+                                <list editable="bottom">
+                                    <field name="student_id"/>
+                                    <field name="submitted_date"/>
+                                    <field name="is_late"/>
+                                    <field name="score"/>
+                                    <field name="state" widget="badge"/>
+                                    <button name="action_grade" type="object"
+                                            string="Grade" icon="fa-check"
+                                            invisible="state != 'submitted'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_assignment" model="ir.actions.act_window">
+        <field name="name">Assignments</field>
+        <field name="res_model">ums.assignment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ums_study_plan_list" model="ir.ui.view">
+        <field name="name">ums.study.plan.list</field>
+        <field name="model">ums.study.plan</field>
+        <field name="arch" type="xml">
+            <list string="Study Plans">
+                <field name="name"/>
+                <field name="program_id"/>
+                <field name="version"/>
+                <field name="effective_term"/>
+                <field name="total_ch"/>
+                <field name="program_total_ch"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state == 'archived'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_study_plan_form" model="ir.ui.view">
+        <field name="name">ums.study.plan.form</field>
+        <field name="model">ums.study.plan</field>
+        <field name="arch" type="xml">
+            <form string="Study Plan">
+                <header>
+                    <button name="action_activate" type="object" string="Activate"
+                            class="oe_highlight" invisible="state == 'active'"/>
+                    <button name="action_new_version" type="object" string="New Version"
+                            invisible="state == 'draft'"/>
+                    <button name="action_set_draft" type="object" string="Set to Draft"
+                            invisible="state == 'draft'"/>
+                    <button name="action_archive_plan" type="object" string="Archive"
+                            invisible="state == 'archived'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,archived"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="version"/>
+                            <field name="effective_term"/>
+                        </group>
+                        <group>
+                            <field name="required_ch"/>
+                            <field name="elective_ch"/>
+                            <field name="total_ch"/>
+                            <field name="program_total_ch"/>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <list editable="bottom">
+                            <field name="level"/>
+                            <field name="semester"/>
+                            <field name="course_id"/>
+                            <field name="credit_hours"/>
+                            <field name="is_elective"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ums_study_plan_search" model="ir.ui.view">
+        <field name="name">ums.study.plan.search</field>
+        <field name="model">ums.study.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="program_id"/>
+                <filter name="active_plans" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="draft_plans" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_program" string="Program"
+                            context="{'group_by': 'program_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ums_study_plan" model="ir.actions.act_window">
+        <field name="name">Study Plans</field>
+        <field name="res_model">ums.study.plan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

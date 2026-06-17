@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_assessment" name="Assessment"
+              parent="ums_core.menu_ums_root" sequence="25"
+              groups="ums_lms.ums_group_faculty"/>
+
+    <menuitem id="menu_ums_grade_entry" name="Grade Entry"
+              parent="menu_ums_assessment" action="action_ums_grade_entry" sequence="10"/>
+    <menuitem id="menu_ums_gpa_record" name="GPA Records"
+              parent="menu_ums_assessment" action="action_ums_gpa_record" sequence="20"/>
+    <menuitem id="menu_ums_graduation" name="Graduation"
+              parent="menu_ums_assessment" action="action_ums_graduation" sequence="30"/>
+</odoo>

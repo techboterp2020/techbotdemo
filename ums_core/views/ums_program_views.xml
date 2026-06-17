@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ums_program_list" model="ir.ui.view">
+        <field name="name">ums.program.list</field>
+        <field name="model">ums.program</field>
+        <field name="arch" type="xml">
+            <list string="Programs">
+                <field name="code"/>
+                <field name="name_en"/>
+                <field name="name_ar"/>
+                <field name="degree_type"/>
+                <field name="department_id"/>
+                <field name="total_credit_hours"/>
+                <field name="language"/>
+                <field name="study_plan_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_program_form" model="ir.ui.view">
+        <field name="name">ums.program.form</field>
+        <field name="model">ums.program</field>
+        <field name="arch" type="xml">
+            <form string="Program">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_study_plans" type="object"
+                                class="oe_stat_button" icon="fa-list-ol">
+                            <field name="study_plan_count" widget="statinfo" string="Study Plans"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name_en" placeholder="Name (English)"/></h1>
+                        <h2><field name="name_ar" placeholder="Name (Arabic)"/></h2>
+                    </div>
+                    <group>
+                        <group string="Classification">
+                            <field name="code"/>
+                            <field name="degree_type"/>
+                            <field name="department_id"/>
+                            <field name="college_id"/>
+                        </group>
+                        <group string="Academic">
+                            <field name="duration_years"/>
+                            <field name="total_credit_hours"/>
+                            <field name="language"/>
+                            <field name="grade_scheme_id"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Program Learning Outcomes" name="plo">
+                            <field name="learning_outcome_ids"
+                                   context="{'default_outcome_type': 'plo', 'default_program_id': id}">
+                                <list editable="bottom">
+                                    <field name="outcome_type" column_invisible="1"/>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ums_program_search" model="ir.ui.view">
+        <field name="name">ums.program.search</field>
+        <field name="model">ums.program</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name_en"/>
+                <field name="name_ar"/>
+                <field name="code"/>
+                <field name="department_id"/>
+                <filter name="bachelor" string="Bachelor" domain="[('degree_type', '=', 'bachelor')]"/>
+                <filter name="postgrad" string="Postgraduate"
+                        domain="[('degree_type', 'in', ['master', 'phd'])]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_degree" string="Degree Type"
+                            context="{'group_by': 'degree_type'}"/>
+                    <filter name="group_college" string="College"
+                            context="{'group_by': 'college_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ums_program" model="ir.actions.act_window">
+        <field name="name">Programs</field>
+        <field name="res_model">ums.program</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

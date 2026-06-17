@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ums_credentials" name="Credentials"
+              parent="ums_core.menu_ums_root" sequence="55"
+              action="action_ums_credential"
+              groups="ums_core.ums_group_registrar"/>
+</odoo>

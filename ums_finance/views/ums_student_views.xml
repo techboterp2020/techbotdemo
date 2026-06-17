@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_student_form_finance" model="ir.ui.view">
+        <field name="name">ums.student.form.finance</field>
+        <field name="model">ums.student</field>
+        <field name="inherit_id" ref="ums_sis.view_ums_student_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='level']" position="after">
+                <field name="student_type"/>
+                <field name="outstanding_balance" widget="monetary"/>
+                <field name="currency_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Invoices" name="invoices">
+                    <field name="invoice_ids" readonly="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="invoice_date"/>
+                            <field name="amount_total"/>
+                            <field name="amount_residual"/>
+                            <field name="zatca_state"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

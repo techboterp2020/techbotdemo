@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_gpa_record_list" model="ir.ui.view">
+        <field name="name">ums.gpa.record.list</field>
+        <field name="model">ums.gpa.record</field>
+        <field name="arch" type="xml">
+            <list string="GPA Records">
+                <field name="student_id"/>
+                <field name="term_id"/>
+                <field name="term_gpa"/>
+                <field name="cgpa"/>
+                <field name="cumulative_credit_hours"/>
+                <field name="classification" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ums_gpa_record" model="ir.actions.act_window">
+        <field name="name">GPA Records</field>
+        <field name="res_model">ums.gpa.record</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

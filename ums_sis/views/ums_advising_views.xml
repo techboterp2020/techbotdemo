@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_advising_note_list" model="ir.ui.view">
+        <field name="name">ums.advising.note.list</field>
+        <field name="model">ums.advising.note</field>
+        <field name="arch" type="xml">
+            <list string="Advising Notes">
+                <field name="note_date"/>
+                <field name="student_id"/>
+                <field name="advisor_id"/>
+                <field name="subject"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ums_advising_note" model="ir.actions.act_window">
+        <field name="name">Advising Notes</field>
+        <field name="res_model">ums.advising.note</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

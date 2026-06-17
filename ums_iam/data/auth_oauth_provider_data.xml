@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Nafath OIDC SSO provider template (FR-ADM-01 / NFR-SEC-02).
+         Endpoints and client credentials are configured per environment;
+         disabled by default until credentials are provided. -->
+    <record id="provider_nafath" model="auth.oauth.provider">
+        <field name="name">Nafath (National Single Sign-On)</field>
+        <field name="flow">id_token</field>
+        <field name="scope">openid</field>
+        <field name="auth_endpoint">https://nafath.example.gov.sa/oauth2/authorize</field>
+        <field name="validation_endpoint">https://nafath.example.gov.sa/oauth2/userinfo</field>
+        <field name="client_id">CONFIGURE_ME</field>
+        <field name="body">Sign in with Nafath</field>
+        <field name="enabled" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_academic_year_user,ums.academic.year.user,model_ums_academic_year,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_academic_year_sched,ums.academic.year.sched,model_ums_academic_year,ums_group_scheduler,1,1,1,1
+access_ums_term_user,ums.term.user,model_ums_term,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_term_sched,ums.term.sched,model_ums_term,ums_group_scheduler,1,1,1,1
+access_ums_key_date_user,ums.key.date.user,model_ums_key_date,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_key_date_sched,ums.key.date.sched,model_ums_key_date,ums_group_scheduler,1,1,1,1
+access_ums_room_user,ums.room.user,model_ums_room,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_room_sched,ums.room.sched,model_ums_room,ums_group_scheduler,1,1,1,1
+access_ums_timeslot_user,ums.timeslot.user,model_ums_timeslot,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_timeslot_sched,ums.timeslot.sched,model_ums_timeslot,ums_group_scheduler,1,1,1,1
+access_ums_section_user,ums.section.user,model_ums_section,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_section_head,ums.section.head,model_ums_section,ums_core.ums_group_dept_head,1,1,1,0
+access_ums_section_sched,ums.section.sched,model_ums_section,ums_group_scheduler,1,1,1,1
+access_ums_exam_user,ums.exam.user,model_ums_exam_schedule,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_exam_sched,ums.exam.sched,model_ums_exam_schedule,ums_group_scheduler,1,1,1,1

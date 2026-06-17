@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ums_data_request_list" model="ir.ui.view">
+        <field name="name">ums.data.request.list</field>
+        <field name="model">ums.data.request</field>
+        <field name="arch" type="xml">
+            <list string="Data Subject Requests"
+                  decoration-danger="due_date and due_date &lt; current_date and state not in ['completed','rejected']">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="request_type"/>
+                <field name="request_date"/>
+                <field name="due_date"/>
+                <field name="handled_by"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'completed'"
+                       decoration-danger="state == 'rejected'"
+                       decoration-info="state == 'in_review'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_data_request_form" model="ir.ui.view">
+        <field name="name">ums.data.request.form</field>
+        <field name="model">ums.data.request</field>
+        <field name="arch" type="xml">
+            <form string="Data Subject Request">
+                <header>
+                    <button name="action_start_review" type="object" string="Start Review"
+                            class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_complete" type="object" string="Complete"
+                            class="oe_highlight" invisible="state != 'in_review'"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="state in ('completed', 'rejected')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="submitted,in_review,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="request_type"/>
+                            <field name="handled_by"/>
+                        </group>
+                        <group>
+                            <field name="request_date"/>
+                            <field name="due_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details" name="details">
+                            <field name="description" placeholder="What is being requested..."/>
+                        </page>
+                        <page string="Response" name="response">
+                            <field name="response" placeholder="Resolution / response provided..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_data_request" model="ir.actions.act_window">
+        <field name="name">Data Subject Requests</field>
+        <field name="res_model">ums.data.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

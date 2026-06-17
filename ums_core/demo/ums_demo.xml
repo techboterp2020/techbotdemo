@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Demo institution / college / department -->
+    <record id="demo_institution" model="ums.institution">
+        <field name="code">KSU</field>
+        <field name="name_en">Demo University</field>
+        <field name="name_ar">الجامعة التجريبية</field>
+    </record>
+
+    <record id="demo_college_eng" model="ums.college">
+        <field name="code">ENG</field>
+        <field name="name_en">College of Engineering</field>
+        <field name="name_ar">كلية الهندسة</field>
+        <field name="institution_id" ref="demo_institution"/>
+    </record>
+
+    <record id="demo_dept_cs" model="ums.department">
+        <field name="code">CS</field>
+        <field name="name_en">Computer Science</field>
+        <field name="name_ar">علوم الحاسب</field>
+        <field name="college_id" ref="demo_college_eng"/>
+    </record>
+
+    <!-- Demo program -->
+    <record id="demo_program_bscs" model="ums.program">
+        <field name="code">BSCS</field>
+        <field name="name_en">B.Sc. Computer Science</field>
+        <field name="name_ar">بكالوريوس علوم الحاسب</field>
+        <field name="department_id" ref="demo_dept_cs"/>
+        <field name="degree_type">bachelor</field>
+        <field name="duration_years">4.0</field>
+        <field name="total_credit_hours">9</field>
+        <field name="language">en</field>
+    </record>
+
+    <!-- Demo courses -->
+    <record id="demo_course_cs101" model="ums.course">
+        <field name="code">CS101</field>
+        <field name="name_en">Introduction to Programming</field>
+        <field name="name_ar">مقدمة في البرمجة</field>
+        <field name="department_id" ref="demo_dept_cs"/>
+        <field name="credit_hours">3</field>
+        <field name="lecture_hours">3</field>
+        <field name="lab_hours">1</field>
+        <field name="level">1</field>
+        <field name="course_type">major</field>
+    </record>
+
+    <record id="demo_course_cs201" model="ums.course">
+        <field name="code">CS201</field>
+        <field name="name_en">Data Structures</field>
+        <field name="name_ar">هياكل البيانات</field>
+        <field name="department_id" ref="demo_dept_cs"/>
+        <field name="credit_hours">3</field>
+        <field name="lecture_hours">3</field>
+        <field name="lab_hours">1</field>
+        <field name="level">2</field>
+        <field name="course_type">major</field>
+    </record>
+
+    <record id="demo_course_math101" model="ums.course">
+        <field name="code">MATH101</field>
+        <field name="name_en">Calculus I</field>
+        <field name="name_ar">حساب التفاضل والتكامل 1</field>
+        <field name="department_id" ref="demo_dept_cs"/>
+        <field name="credit_hours">3</field>
+        <field name="lecture_hours">3</field>
+        <field name="level">1</field>
+        <field name="course_type">college</field>
+    </record>
+
+    <!-- CS201 requires CS101 -->
+    <record id="demo_prereq_cs201" model="ums.course.prerequisite">
+        <field name="course_id" ref="demo_course_cs201"/>
+        <field name="prerequisite_course_id" ref="demo_course_cs101"/>
+        <field name="relation_type">prerequisite</field>
+    </record>
+
+    <!-- Demo study plan (3 courses = 9 CH = program total) -->
+    <record id="demo_study_plan_bscs_v1" model="ums.study.plan">
+        <field name="program_id" ref="demo_program_bscs"/>
+        <field name="version">1</field>
+        <field name="effective_term">2026 Fall</field>
+        <field name="state">draft</field>
+    </record>
+
+    <record id="demo_plan_line_1" model="ums.study.plan.line">
+        <field name="study_plan_id" ref="demo_study_plan_bscs_v1"/>
+        <field name="course_id" ref="demo_course_cs101"/>
+        <field name="level">1</field>
+        <field name="semester">1</field>
+    </record>
+    <record id="demo_plan_line_2" model="ums.study.plan.line">
+        <field name="study_plan_id" ref="demo_study_plan_bscs_v1"/>
+        <field name="course_id" ref="demo_course_math101"/>
+        <field name="level">1</field>
+        <field name="semester">1</field>
+    </record>
+    <record id="demo_plan_line_3" model="ums.study.plan.line">
+        <field name="study_plan_id" ref="demo_study_plan_bscs_v1"/>
+        <field name="course_id" ref="demo_course_cs201"/>
+        <field name="level">2</field>
+        <field name="semester">1</field>
+    </record>
+
+</odoo>

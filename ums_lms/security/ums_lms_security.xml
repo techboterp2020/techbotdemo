@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ums_group_faculty" model="res.groups">
+        <field name="name">Academic: Faculty</field>
+        <field name="category_id" ref="ums_core.module_category_ums"/>
+        <field name="implied_ids" eval="[(4, ref('ums_core.ums_group_academic_user'))]"/>
+        <field name="comment">Teach assigned sections: assignments, attendance, grading.</field>
+    </record>
+
+    <record id="ums_core.ums_group_dept_head" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('ums_group_faculty'))]"/>
+    </record>
+</odoo>

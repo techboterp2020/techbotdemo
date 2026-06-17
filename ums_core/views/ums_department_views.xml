@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ums_department_list" model="ir.ui.view">
+        <field name="name">ums.department.list</field>
+        <field name="model">ums.department</field>
+        <field name="arch" type="xml">
+            <list string="Departments">
+                <field name="code"/>
+                <field name="name_en"/>
+                <field name="name_ar"/>
+                <field name="college_id"/>
+                <field name="head_id"/>
+                <field name="program_count"/>
+                <field name="course_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_department_form" model="ir.ui.view">
+        <field name="name">ums.department.form</field>
+        <field name="model">ums.department</field>
+        <field name="arch" type="xml">
+            <form string="Department">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_programs" type="object"
+                                class="oe_stat_button" icon="fa-graduation-cap">
+                            <field name="program_count" widget="statinfo" string="Programs"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-book" disabled="1">
+                            <field name="course_count" widget="statinfo" string="Courses"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name_en" placeholder="Name (English)"/></h1>
+                        <h2><field name="name_ar" placeholder="Name (Arabic)"/></h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="college_id"/>
+                            <field name="institution_id"/>
+                        </group>
+                        <group>
+                            <field name="head_id"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ums_department_search" model="ir.ui.view">
+        <field name="name">ums.department.search</field>
+        <field name="model">ums.department</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name_en"/>
+                <field name="name_ar"/>
+                <field name="code"/>
+                <field name="college_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_college" string="College"
+                            context="{'group_by': 'college_id'}"/>
+                    <filter name="group_institution" string="Institution"
+                            context="{'group_by': 'institution_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ums_department" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">ums.department</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

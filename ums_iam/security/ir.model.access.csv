@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_audit_log_user,ums.audit.log.user,model_ums_audit_log,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_audit_log_admin,ums.audit.log.admin,model_ums_audit_log,ums_core.ums_group_admin,1,0,1,0

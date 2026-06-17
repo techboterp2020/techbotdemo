@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_grade_entry_list" model="ir.ui.view">
+        <field name="name">ums.grade.entry.list</field>
+        <field name="model">ums.grade.entry</field>
+        <field name="arch" type="xml">
+            <list string="Grade Entries" editable="bottom">
+                <field name="student_id"/>
+                <field name="course_id"/>
+                <field name="section_id"/>
+                <field name="term_id"/>
+                <field name="total_mark"/>
+                <field name="special_grade"/>
+                <field name="grade_letter"/>
+                <field name="grade_point"/>
+                <field name="state" widget="badge"/>
+                <button name="action_submit" type="object" string="Submit"
+                        icon="fa-paper-plane" invisible="state != 'draft'"/>
+                <button name="action_approve" type="object" string="Approve"
+                        icon="fa-check" invisible="state != 'submitted'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_grade_entry_form" model="ir.ui.view">
+        <field name="name">ums.grade.entry.form</field>
+        <field name="model">ums.grade.entry</field>
+        <field name="arch" type="xml">
+            <form string="Grade Entry">
+                <header>
+                    <button name="action_submit" type="object" string="Submit"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve"
+                            class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft"
+                            invisible="state == 'draft'"
+                            groups="ums_core.ums_group_registrar"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="registration_id"/>
+                            <field name="student_id"/>
+                            <field name="course_id"/>
+                        </group>
+                        <group>
+                            <field name="total_mark"/>
+                            <field name="special_grade"/>
+                            <field name="grade_letter"/>
+                            <field name="grade_point"/>
+                            <field name="credit_hours"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_grade_entry" model="ir.actions.act_window">
+        <field name="name">Grade Entries</field>
+        <field name="res_model">ums.grade.entry</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_credential_registrar,ums.credential.registrar,model_ums_credential,ums_core.ums_group_registrar,1,1,1,1
+access_ums_credential_student,ums.credential.student,model_ums_credential,ums_sis.ums_group_student,1,0,0,0

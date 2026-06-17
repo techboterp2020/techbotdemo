@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_key_date_list" model="ir.ui.view">
+        <field name="name">ums.key.date.list</field>
+        <field name="model">ums.key.date</field>
+        <field name="arch" type="xml">
+            <list string="Key Dates">
+                <field name="term_id"/>
+                <field name="date_type"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="hijri_display"/>
+                <field name="show_on_portal"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ums_key_date" model="ir.actions.act_window">
+        <field name="name">Key Dates</field>
+        <field name="res_model">ums.key.date</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

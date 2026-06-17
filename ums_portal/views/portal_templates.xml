@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add an "Academics" card to the portal home (RFP unified portal). -->
+    <template id="portal_my_home_academics" name="Portal My Home : Academics"
+              inherit_id="portal.portal_my_home" priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Academics</t>
+                <t t-set="url" t-value="'/my/academics'"/>
+                <t t-set="placeholder_count" t-value="'registration_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_academics" name="My Academics">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <div class="o_portal_my_doc_table">
+                <h3>Academic Record / السجل الأكاديمي</h3>
+                <p>
+                    <strong>Student:</strong> <span t-field="student.name"/> —
+                    <strong>University ID:</strong> <span t-field="student.university_id"/>
+                </p>
+
+                <t t-if="holds">
+                    <div class="alert alert-warning" role="alert">
+                        You have <span t-esc="len(holds)"/> active hold(s) that may
+                        block registration or transcripts.
+                    </div>
+                </t>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Course</th>
+                            <th>Section</th>
+                            <th>CH</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="registrations" t-as="reg">
+                            <td t-field="reg.term_id"/>
+                            <td t-field="reg.course_id"/>
+                            <td t-field="reg.section_id"/>
+                            <td t-field="reg.credit_hours"/>
+                            <td t-field="reg.grade_letter"/>
+                            <td t-field="reg.state"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+</odoo>

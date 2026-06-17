@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_rubric_faculty,ums.rubric.faculty,model_ums_rubric,ums_group_faculty,1,1,1,1
+access_ums_rubric_criterion_faculty,ums.rubric.criterion.faculty,model_ums_rubric_criterion,ums_group_faculty,1,1,1,1
+access_ums_assignment_faculty,ums.assignment.faculty,model_ums_assignment,ums_group_faculty,1,1,1,1
+access_ums_assignment_student,ums.assignment.student,model_ums_assignment,ums_sis.ums_group_student,1,0,0,0
+access_ums_submission_faculty,ums.submission.faculty,model_ums_assignment_submission,ums_group_faculty,1,1,1,1
+access_ums_submission_student,ums.submission.student,model_ums_assignment_submission,ums_sis.ums_group_student,1,1,1,0
+access_ums_sub_rubric_score_faculty,ums.sub.rubric.score.faculty,model_ums_submission_rubric_score,ums_group_faculty,1,1,1,1
+access_ums_attendance_session_faculty,ums.attendance.session.faculty,model_ums_attendance_session,ums_group_faculty,1,1,1,1
+access_ums_attendance_line_faculty,ums.attendance.line.faculty,model_ums_attendance_line,ums_group_faculty,1,1,1,1
+access_ums_attendance_line_student,ums.attendance.line.student,model_ums_attendance_line,ums_sis.ums_group_student,1,0,0,0
+access_ums_lms_link_admin,ums.lms.link.admin,model_ums_lms_link,ums_core.ums_group_admin,1,1,1,1
+access_ums_lms_link_faculty,ums.lms.link.faculty,model_ums_lms_link,ums_group_faculty,1,0,0,0

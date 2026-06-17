@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_fee_structure_list" model="ir.ui.view">
+        <field name="name">ums.fee.structure.list</field>
+        <field name="model">ums.fee.structure</field>
+        <field name="arch" type="xml">
+            <list string="Fee Structures">
+                <field name="name"/>
+                <field name="program_id"/>
+                <field name="level"/>
+                <field name="student_type"/>
+                <field name="per_ch_rate"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_fee_structure_form" model="ir.ui.view">
+        <field name="name">ums.fee.structure.form</field>
+        <field name="model">ums.fee.structure</field>
+        <field name="arch" type="xml">
+            <form string="Fee Structure">
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="level"/>
+                            <field name="student_type"/>
+                        </group>
+                        <group>
+                            <field name="per_ch_rate"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <separator string="Fixed Fees"/>
+                    <field name="item_ids">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="amount"/>
+                            <field name="is_vat_exempt"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_fee_structure" model="ir.actions.act_window">
+        <field name="name">Fee Structures</field>
+        <field name="res_model">ums.fee.structure</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

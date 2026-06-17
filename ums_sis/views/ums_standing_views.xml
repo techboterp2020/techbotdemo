@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_standing_list" model="ir.ui.view">
+        <field name="name">ums.academic.standing.list</field>
+        <field name="model">ums.academic.standing</field>
+        <field name="arch" type="xml">
+            <list string="Academic Standing">
+                <field name="student_id"/>
+                <field name="term_id"/>
+                <field name="cgpa"/>
+                <field name="standing" widget="badge"
+                       decoration-success="standing == 'good'"
+                       decoration-warning="standing == 'warning'"
+                       decoration-danger="standing in ('probation','dismissal')"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ums_standing" model="ir.actions.act_window">
+        <field name="name">Academic Standing</field>
+        <field name="res_model">ums.academic.standing</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

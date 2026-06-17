@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_assessment_component_faculty,ums.assessment.component.faculty,model_ums_assessment_component,ums_lms.ums_group_faculty,1,1,1,1
+access_ums_grade_entry_faculty,ums.grade.entry.faculty,model_ums_grade_entry,ums_lms.ums_group_faculty,1,1,1,0
+access_ums_grade_entry_registrar,ums.grade.entry.registrar,model_ums_grade_entry,ums_core.ums_group_registrar,1,1,1,1
+access_ums_grade_entry_student,ums.grade.entry.student,model_ums_grade_entry,ums_sis.ums_group_student,1,0,0,0
+access_ums_gpa_record_student,ums.gpa.record.student,model_ums_gpa_record,ums_sis.ums_group_student,1,0,0,0
+access_ums_gpa_record_registrar,ums.gpa.record.registrar,model_ums_gpa_record,ums_core.ums_group_registrar,1,1,1,1
+access_ums_graduation_registrar,ums.graduation.registrar,model_ums_graduation,ums_core.ums_group_registrar,1,1,1,1
+access_ums_graduation_student,ums.graduation.student,model_ums_graduation,ums_sis.ums_group_student,1,0,0,0

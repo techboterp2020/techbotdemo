@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_move_form_ums_zatca" model="ir.ui.view">
+        <field name="name">account.move.form.ums.zatca</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='narration']" position="before">
+                <group string="ZATCA / Student" invisible="not is_student_invoice"
+                       groups="account.group_account_invoice">
+                    <field name="is_student_invoice"/>
+                    <field name="ums_student_id"/>
+                    <field name="zatca_state"/>
+                    <field name="zatca_uuid" readonly="1"/>
+                    <field name="zatca_qr" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

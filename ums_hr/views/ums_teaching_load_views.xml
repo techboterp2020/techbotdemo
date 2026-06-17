@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_teaching_load_list" model="ir.ui.view">
+        <field name="name">ums.teaching.load.list</field>
+        <field name="model">ums.teaching.load</field>
+        <field name="arch" type="xml">
+            <list string="Teaching Load"
+                  decoration-danger="is_overloaded">
+                <field name="employee_id"/>
+                <field name="term_id"/>
+                <field name="total_credit_hours"/>
+                <field name="max_load"/>
+                <field name="is_overloaded"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_teaching_load_form" model="ir.ui.view">
+        <field name="name">ums.teaching.load.form</field>
+        <field name="model">ums.teaching.load</field>
+        <field name="arch" type="xml">
+            <form string="Teaching Load">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="term_id"/>
+                        </group>
+                        <group>
+                            <field name="total_credit_hours"/>
+                            <field name="max_load"/>
+                            <field name="is_overloaded"/>
+                        </group>
+                    </group>
+                    <field name="section_ids" widget="many2many_tags"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ums_teaching_load" model="ir.actions.act_window">
+        <field name="name">Teaching Load</field>
+        <field name="res_model">ums.teaching.load</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ums_application_list" model="ir.ui.view">
+        <field name="name">ums.application.list</field>
+        <field name="model">ums.application</field>
+        <field name="arch" type="xml">
+            <list string="Applications">
+                <field name="name"/>
+                <field name="partner_name"/>
+                <field name="program_id"/>
+                <field name="intake_id"/>
+                <field name="composite_score"/>
+                <field name="rank"/>
+                <field name="fee_paid"/>
+                <field name="state" widget="badge"
+                       decoration-success="state in ('accepted','enrolled')"
+                       decoration-info="state in ('shortlisted','offer')"
+                       decoration-danger="state == 'rejected'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ums_application_form" model="ir.ui.view">
+        <field name="name">ums.application.form</field>
+        <field name="model">ums.application</field>
+        <field name="arch" type="xml">
+            <form string="Application">
+                <header>
+                    <button name="action_submit" type="object" string="Submit"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_start_review" type="object" string="Start Review"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_shortlist" type="object" string="Shortlist"
+                            invisible="state != 'under_review'"/>
+                    <button name="action_issue_offer" type="object" string="Issue Offer"
+                            class="oe_highlight" invisible="state != 'shortlisted'"/>
+                    <button name="action_accept_offer" type="object" string="Accept Offer"
+                            invisible="state != 'offer'"/>
+                    <button name="action_enroll" type="object" string="Enroll"
+                            class="oe_highlight" invisible="state != 'accepted'"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="state in ('enrolled','rejected')"/>
+                    <button name="action_waitlist" type="object" string="Waitlist"
+                            invisible="state in ('enrolled','rejected','waitlisted')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,submitted,under_review,shortlisted,offer,accepted,enrolled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="partner_name"/>
+                        <h1><field name="partner_name"/></h1>
+                        <h3><field name="name" readonly="1"/></h3>
+                    </div>
+                    <group>
+                        <group string="Applicant">
+                            <field name="national_id"/>
+                            <field name="nafath_verified"/>
+                            <field name="gender"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group string="Application">
+                            <field name="program_id"/>
+                            <field name="intake_id"/>
+                            <field name="fee_paid"/>
+                            <field name="rank" readonly="1"/>
+                            <field name="student_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Entrance Scores">
+                        <group>
+                            <field name="qiyas_score"/>
+                            <field name="tahsili_score"/>
+                            <field name="hs_gpa"/>
+                        </group>
+                        <group>
+                            <field name="composite_score"/>
+                            <field name="documents_verified"/>
+                            <field name="offer_date" readonly="1"/>
+                            <field name="acceptance_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids">
+                                <list editable="bottom">
+                                    <field name="doc_type"/>
+                                    <field name="name"/>
+                                    <field name="required"/>
+                                    <field name="attachment" filename="filename"/>
+                                    <field name="filename" column_invisible="1"/>
+                                    <field name="authenticity_flag"/>
+                                    <field name="state" widget="badge"/>
+                                    <button name="action_verify" type="object"
+                                            string="Verify" icon="fa-check"
+                                            invisible="state == 'verified'"/>
+                                    <button name="action_reject" type="object"
+                                            string="Reject" icon="fa-times"
+                                            invisible="state == 'rejected'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ums_application_search" model="ir.ui.view">
+        <field name="name">ums.application.search</field>
+        <field name="model">ums.application</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_name"/>
+                <field name="national_id"/>
+                <field name="program_id"/>
+                <field name="intake_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_intake" string="Intake" context="{'group_by': 'intake_id'}"/>
+                    <filter name="group_program" string="Program" context="{'group_by': 'program_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ums_application" model="ir.actions.act_window">
+        <field name="name">Applications</field>
+        <field name="res_model">ums.application</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_fee_structure_user,ums.fee.structure.user,model_ums_fee_structure,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_fee_structure_acct,ums.fee.structure.acct,model_ums_fee_structure,account.group_account_manager,1,1,1,1
+access_ums_fee_item_user,ums.fee.item.user,model_ums_fee_item,ums_core.ums_group_academic_user,1,0,0,0
+access_ums_fee_item_acct,ums.fee.item.acct,model_ums_fee_item,account.group_account_manager,1,1,1,1

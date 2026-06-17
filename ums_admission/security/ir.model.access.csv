@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ums_lead_officer,ums.lead.officer,model_ums_lead,ums_group_admissions,1,1,1,1
+access_ums_intake_officer,ums.intake.officer,model_ums_intake,ums_group_admissions,1,1,1,0
+access_ums_intake_committee,ums.intake.committee,model_ums_intake,ums_group_admissions_committee,1,1,1,1
+access_ums_seat_quota_officer,ums.seat.quota.officer,model_ums_seat_quota,ums_group_admissions,1,1,1,1
+access_ums_application_officer,ums.application.officer,model_ums_application,ums_group_admissions,1,1,1,0
+access_ums_application_committee,ums.application.committee,model_ums_application,ums_group_admissions_committee,1,1,1,1
+access_ums_application_document_officer,ums.application.document.officer,model_ums_application_document,ums_group_admissions,1,1,1,1
