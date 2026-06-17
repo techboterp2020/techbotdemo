@@ -23,7 +23,8 @@ University Management System — Identity & Access Management (RFP #5 / NFR-SEC)
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/auth_oauth_provider_data.xml',
+        # Nafath OAuth provider is configured in Settings > Users > OAuth
+        # Providers post-install (auth.oauth.provider fields changed in v19).
         'views/ums_audit_log_views.xml',
         'views/res_users_views.xml',
         'views/ums_menus.xml',
