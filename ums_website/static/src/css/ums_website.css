@@ -1,0 +1,90 @@
+/* UMS public website theme — teal/green with gold accent (KSA university feel) */
+:root {
+    --ums-primary: #0b6b5e;
+    --ums-primary-dark: #074b41;
+    --ums-gold: #c9a227;
+}
+
+.ums-site { color: #2c3e3a; }
+
+/* Hero */
+.ums-hero {
+    background: linear-gradient(135deg, var(--ums-primary) 0%, var(--ums-primary-dark) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 0;
+}
+.ums-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0, transparent 40%),
+                      radial-gradient(circle at 80% 70%, rgba(201,162,39,0.18) 0, transparent 45%);
+    pointer-events: none;
+}
+.ums-hero .container { position: relative; z-index: 1; }
+.ums-hero-kicker {
+    font-size: 1.4rem;
+    color: var(--ums-gold);
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+
+/* Page headers */
+.ums-pagehead {
+    background: linear-gradient(135deg, var(--ums-primary) 0%, var(--ums-primary-dark) 100%);
+}
+
+/* Stats */
+.ums-stat { display: flex; flex-direction: column; padding: 1rem; }
+.ums-stat-num {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--ums-primary);
+    line-height: 1;
+}
+.ums-stat-label { color: #6c7a76; font-weight: 600; text-transform: uppercase; font-size: .8rem; letter-spacing: .05em; }
+
+/* Cards */
+.ums-card { transition: transform .2s ease, box-shadow .2s ease; border-radius: 14px; }
+.ums-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(11,107,94,.15) !important; }
+.ums-badge { background: var(--ums-primary); color: #fff; font-weight: 600; }
+.ums-arabic { font-size: 1.05rem; direction: rtl; text-align: right; }
+
+/* Features */
+.ums-feature { text-align: center; padding: 1.5rem; }
+.ums-feature i {
+    font-size: 2.2rem;
+    color: var(--ums-primary);
+    background: rgba(11,107,94,.1);
+    width: 72px; height: 72px;
+    line-height: 72px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+.ums-feature h5 { font-weight: 700; }
+
+/* CTA */
+.ums-cta {
+    background: linear-gradient(135deg, var(--ums-primary-dark) 0%, #053a32 100%);
+}
+
+/* Buttons */
+.ums-site .btn-primary { background-color: var(--ums-primary); border-color: var(--ums-primary); }
+.ums-site .btn-primary:hover { background-color: var(--ums-primary-dark); border-color: var(--ums-primary-dark); }
+.ums-site .btn-outline-primary { color: var(--ums-primary); border-color: var(--ums-primary); }
+.ums-site .btn-outline-primary:hover { background-color: var(--ums-primary); border-color: var(--ums-primary); }
+.ums-site .btn-warning { background-color: var(--ums-gold); border-color: var(--ums-gold); color: #1c1c1c; }
+.ums-site .btn-warning:hover { background-color: #b8911f; border-color: #b8911f; }
+
+/* Success check */
+.ums-check {
+    width: 84px; height: 84px;
+    border-radius: 50%;
+    background: rgba(11,107,94,.12);
+    color: var(--ums-primary);
+    font-size: 2.4rem;
+    line-height: 84px;
+    text-align: center;
+}

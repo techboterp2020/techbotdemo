@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================ HOME ============================ -->
+    <template id="home" name="University Home">
+        <t t-call="website.layout">
+            <t t-set="degree_labels" t-value="{'diploma':'Diploma','associate':'Associate','bachelor':'Bachelor','higher_diploma':'Higher Diploma','master':'Master','phd':'PhD'}"/>
+            <div id="wrap" class="oe_structure ums-site">
+
+                <!-- Hero -->
+                <section class="ums-hero text-center text-white">
+                    <div class="container py-5">
+                        <p class="ums-hero-kicker mb-2">جامعة الرياض الدولية</p>
+                        <h1 class="display-3 fw-bold mb-3">Riyadh International University</h1>
+                        <p class="lead mb-4 mx-auto" style="max-width:720px;">
+                            A world-class, Arabic-first higher-education experience —
+                            accredited, digital, and built for the Kingdom's future.
+                        </p>
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <a href="/university/apply" class="btn btn-warning btn-lg px-4 fw-semibold">Apply Now</a>
+                            <a href="/university/programs" class="btn btn-outline-light btn-lg px-4">Explore Programs</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats -->
+                <section class="ums-stats py-5">
+                    <div class="container">
+                        <div class="row text-center g-4">
+                            <div class="col-6 col-md-3">
+                                <div class="ums-stat"><span class="ums-stat-num" t-esc="college_count"/><span class="ums-stat-label">Colleges</span></div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="ums-stat"><span class="ums-stat-num" t-esc="program_count"/><span class="ums-stat-label">Programs</span></div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="ums-stat"><span class="ums-stat-num" t-esc="course_count"/><span class="ums-stat-label">Courses</span></div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="ums-stat"><span class="ums-stat-num" t-esc="student_count"/><span class="ums-stat-label">Students</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Featured programs -->
+                <section class="py-5 bg-light">
+                    <div class="container">
+                        <div class="text-center mb-5">
+                            <h2 class="fw-bold">Featured Programs</h2>
+                            <p class="text-muted">Undergraduate and postgraduate degrees across our colleges.</p>
+                        </div>
+                        <div class="row g-4">
+                            <t t-foreach="programs" t-as="program">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card ums-card h-100 border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <span class="badge ums-badge mb-2" t-esc="degree_labels.get(program.degree_type, program.degree_type)"/>
+                                            <h5 class="card-title fw-bold mb-1" t-esc="program.name_en"/>
+                                            <p class="ums-arabic text-muted mb-3" t-esc="program.name_ar"/>
+                                            <ul class="list-unstyled small text-muted mb-3">
+                                                <li><i class="fa fa-building me-2"/><span t-esc="program.college_id.name_en"/></li>
+                                                <li><i class="fa fa-graduation-cap me-2"/><span t-esc="program.total_credit_hours"/> credit hours</li>
+                                            </ul>
+                                            <a t-att-href="'/university/apply?program=%s' % program.id" class="btn btn-sm btn-outline-primary">Apply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="/university/programs" class="btn btn-primary px-4">View All Programs</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Why us -->
+                <section class="py-5">
+                    <div class="container">
+                        <div class="text-center mb-5"><h2 class="fw-bold">Why Choose Us</h2></div>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="ums-feature"><i class="fa fa-language"/><h5>Arabic-First &amp; Bilingual</h5><p class="text-muted">Full Arabic RTL experience with bilingual documents and transcripts.</p></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ums-feature"><i class="fa fa-id-card"/><h5>Nafath Sign-On</h5><p class="text-muted">Secure national identity verification for applicants and students.</p></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ums-feature"><i class="fa fa-certificate"/><h5>NCAAA Accredited</h5><p class="text-muted">Programs aligned with ETEC/NCAAA accreditation standards.</p></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ums-feature"><i class="fa fa-file-invoice"/><h5>ZATCA Compliant</h5><p class="text-muted">Phase-2 e-invoicing with QR — transparent, compliant student finance.</p></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ums-feature"><i class="fa fa-calendar"/><h5>Hijri &amp; Gregorian</h5><p class="text-muted">Dual-calendar dates across the whole student journey.</p></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ums-feature"><i class="fa fa-laptop"/><h5>Student Portal</h5><p class="text-muted">Self-service registration, grades, schedule and fees online.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA -->
+                <section class="ums-cta text-center text-white py-5">
+                    <div class="container">
+                        <h2 class="fw-bold mb-3">Ready to begin your journey?</h2>
+                        <p class="lead mb-4">Applications are open. Apply online in minutes.</p>
+                        <a href="/university/apply" class="btn btn-warning btn-lg px-5 fw-semibold">Start Your Application</a>
+                    </div>
+                </section>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- ========================== PROGRAMS ========================== -->
+    <template id="programs" name="Programs">
+        <t t-call="website.layout">
+            <t t-set="degree_labels" t-value="{'diploma':'Diploma','associate':'Associate','bachelor':'Bachelor','higher_diploma':'Higher Diploma','master':'Master','phd':'PhD'}"/>
+            <t t-set="lang_labels" t-value="{'ar':'Arabic','en':'English','bilingual':'Bilingual (AR/EN)'}"/>
+            <div id="wrap" class="ums-site">
+                <section class="ums-pagehead text-white text-center py-5">
+                    <div class="container"><h1 class="fw-bold mb-1">Our Programs</h1>
+                        <p class="mb-0">Explore degrees across all colleges</p></div>
+                </section>
+                <section class="py-5">
+                    <div class="container">
+                        <div class="mb-4 d-flex flex-wrap gap-2 justify-content-center">
+                            <a href="/university/programs"
+                               t-attf-class="btn btn-sm #{'btn-primary' if not active_college else 'btn-outline-secondary'}">All</a>
+                            <t t-foreach="colleges" t-as="college">
+                                <a t-att-href="'/university/programs?college=%s' % college.id"
+                                   t-attf-class="btn btn-sm #{'btn-primary' if active_college == college.id else 'btn-outline-secondary'}"
+                                   t-esc="college.name_en"/>
+                            </t>
+                        </div>
+                        <div class="row g-4">
+                            <t t-foreach="programs" t-as="program">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card ums-card h-100 border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <span class="badge ums-badge mb-2" t-esc="degree_labels.get(program.degree_type, program.degree_type)"/>
+                                            <h5 class="fw-bold mb-1" t-esc="program.name_en"/>
+                                            <p class="ums-arabic text-muted mb-3" t-esc="program.name_ar"/>
+                                            <ul class="list-unstyled small text-muted mb-3">
+                                                <li><i class="fa fa-building me-2"/><span t-esc="program.college_id.name_en"/></li>
+                                                <li><i class="fa fa-graduation-cap me-2"/><span t-esc="program.total_credit_hours"/> credit hours</li>
+                                                <li><i class="fa fa-language me-2"/><span t-esc="lang_labels.get(program.language, program.language)"/></li>
+                                            </ul>
+                                            <a t-att-href="'/university/apply?program=%s' % program.id" class="btn btn-sm btn-primary">Apply Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="not programs">
+                                <div class="col-12 text-center text-muted py-5">No programs found.</div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- =========================== APPLY =========================== -->
+    <template id="apply" name="Apply Online">
+        <t t-call="website.layout">
+            <div id="wrap" class="ums-site">
+                <section class="ums-pagehead text-white text-center py-5">
+                    <div class="container"><h1 class="fw-bold mb-1">Apply Online</h1>
+                        <p class="mb-0">Start your application — it only takes a minute</p></div>
+                </section>
+                <section class="py-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body p-4 p-md-5">
+                                        <t t-if="error">
+                                            <div class="alert alert-danger">Please provide at least your name and email.</div>
+                                        </t>
+                                        <form action="/university/apply/submit" method="post" class="ums-form">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
+                                                <input type="text" name="name" class="form-control form-control-lg" required="required" placeholder="Your full name"/>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label fw-semibold">National ID / Iqama</label>
+                                                    <input type="text" name="national_id" class="form-control" placeholder="10 digits"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label fw-semibold">Phone</label>
+                                                    <input type="text" name="phone" class="form-control" placeholder="+966 5x xxx xxxx"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                                <input type="email" name="email" class="form-control" required="required" placeholder="you@example.com"/>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="form-label fw-semibold">Program of Interest</label>
+                                                <select name="program_id" class="form-select">
+                                                    <option value="">— Select a program —</option>
+                                                    <t t-foreach="programs" t-as="program">
+                                                        <option t-att-value="program.id"
+                                                                t-att-selected="'selected' if selected_program == program.id else None"
+                                                                t-esc="program.name_en"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-lg w-100 fw-semibold">Submit Application</button>
+                                            <p class="text-muted small text-center mt-3 mb-0">
+                                                By applying you consent to processing under PDPL.
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- ======================== THANK YOU ========================== -->
+    <template id="apply_thanks" name="Application Received">
+        <t t-call="website.layout">
+            <div id="wrap" class="ums-site">
+                <section class="py-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7 text-center">
+                                <div class="card border-0 shadow-sm p-5">
+                                    <div class="ums-check mx-auto mb-3"><i class="fa fa-check"/></div>
+                                    <h2 class="fw-bold">Thank you, <span t-esc="name"/>!</h2>
+                                    <p class="text-muted mb-4">
+                                        Your application has been received. Our admissions team
+                                        will contact you shortly. A reference enquiry has been
+                                        created in our system.
+                                    </p>
+                                    <div class="d-flex gap-3 justify-content-center">
+                                        <a href="/university/programs" class="btn btn-outline-primary">Browse Programs</a>
+                                        <a href="/university" class="btn btn-primary">Back to Home</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+</odoo>

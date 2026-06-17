@@ -22,6 +22,7 @@ University Management System — Assessment & Grading (FR-ASM-01 .. FR-ASM-09)
         'ums_calendar',
         'ums_sis',
         'ums_ksa_localization',
+        'ums_lms',
     ],
     'data': [
         'security/ir.model.access.csv',
